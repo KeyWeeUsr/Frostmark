@@ -4,3 +4,8 @@
 # Emacs edits
 *#*
 *.#*
+
+# Python files
+*__pycache__*
+*.egg-info*
+*.pyc
