@@ -46,6 +46,6 @@ setup(
         'Programming Language :: Python :: 3.7'
     ],
 
-    install_requires=['kivy'],
+    install_requires=['sqlalchemy'],
     extras_require={'dev': ['pycodestyle', 'pylint']}
 )
