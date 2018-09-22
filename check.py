@@ -3,11 +3,12 @@ Style checker for Frostmark.
 """
 
 from subprocess import Popen
+from os.path import join, dirname, abspath
 
-
+ROOT = dirname(abspath(__file__))
 CASES = [
-    'pycodestyle .',
-    'pylint setup.py'
+    ['pycodestyle', f'{ROOT}'],
+    ['pylint', 'check.py', 'setup.py', f'{join(ROOT, "frostmark")}']
 ]
 
 
