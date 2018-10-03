@@ -13,7 +13,7 @@ from frostmark import user_data
 
 DB_NAME = 'user_db.sqlite'
 DB_PATH = join(dirname(abspath(user_data.__file__)), DB_NAME)
-ENGINE = create_engine(f'sqlite:///{DB_PATH}', echo=True)
+ENGINE = create_engine(f'sqlite:///{DB_PATH}')
 BASE = declarative_base()
 SESSIONMAKER = sessionmaker()
 SESSIONMAKER.configure(bind=ENGINE)
