@@ -28,5 +28,12 @@ CASES = [[
 
 
 if __name__ == '__main__':
-    for test in CASES:
-        Popen(test).communicate()
+    for i, test in enumerate(CASES):
+        proc = Popen(test)
+        proc.communicate()
+        print(f'[{i + 1}/{len(CASES)}] ', end='')
+        if proc.returncode == 0:
+            print('Success!')
+        else:
+            print('Fail!')
+            break
