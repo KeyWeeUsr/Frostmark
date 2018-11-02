@@ -42,7 +42,7 @@ class DBBaseTestCase(unittest.TestCase):
         self.assertNotIn(db_base.DB_NAME, listdir(folder))
 
         db_base.BASE.metadata.create_all(db_base.ENGINE)
-        ses = db_base.SESSIONMAKER()
+        db_base.SESSIONMAKER()
 
         self.assertIn(db_base.DB_NAME, listdir(folder))
         remove(join(folder, db_base.DB_NAME))
