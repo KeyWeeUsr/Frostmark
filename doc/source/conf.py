@@ -15,6 +15,8 @@ list see the documentation: http://www.sphinx-doc.org/en/master/config
 
 import sys
 from os.path import join, dirname, abspath
+from frostmark import VERSION
+
 root_folder = dirname(dirname(dirname(abspath(__file__))))
 sys.path.insert(0, join(root_folder, 'frostmark'))
 
@@ -26,7 +28,6 @@ copyright = '2018, Peter Badida'  # pylint: disable=redefined-builtin
 author = 'Peter Badida'
 
 # The short X.Y version
-from frostmark import VERSION
 version = VERSION
 # The full version, including alpha/beta/rc tags
 release = ''
