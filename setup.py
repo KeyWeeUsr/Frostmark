@@ -5,11 +5,11 @@ Basic setup.py
 
 from os.path import abspath, dirname, join
 from setuptools import setup
+from frostmark import VERSION
 
 
 ROOT = abspath(dirname(__file__))
 REPO = 'https://github.com/KeyWeeUsr/Frostmark'
-VERSION = '0.0.0'
 
 
 with open(join(ROOT, "README.md")) as fd:

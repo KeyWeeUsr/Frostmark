@@ -26,7 +26,8 @@ copyright = '2018, Peter Badida'  # pylint: disable=redefined-builtin
 author = 'Peter Badida'
 
 # The short X.Y version
-version = ''
+from frostmark import VERSION
+version = VERSION
 # The full version, including alpha/beta/rc tags
 release = ''
 
