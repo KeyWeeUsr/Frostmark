@@ -9,7 +9,7 @@ from subprocess import Popen
 from shutil import rmtree
 
 ROOT = dirname(abspath(__file__))
-SPHINXOPTS = []
+SPHINXOPTS = ['-vvvvvvvvv', '-W', '-T', ]
 SPHINXBUILD = 'sphinx-build'
 SOURCEDIR = join(ROOT, 'source')
 BUILDDIR = join(ROOT, 'build')
@@ -27,8 +27,9 @@ if __name__ == '__main__':
         mkdir(BUILDDIR)
         EXITCODE = 0
     else:
+        ARGS = ''.join(sys.argv[1:])
         COMMAND = [
-            SPHINXBUILD, '-M', ''.join(sys.argv[1:]),
+            SPHINXBUILD, '-M', ARGS if ARGS else 'html',
             SOURCEDIR, BUILDDIR
         ]
 
