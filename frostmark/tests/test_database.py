@@ -42,7 +42,8 @@ class DBBaseTestCase(unittest.TestCase):
         self.assertNotIn(db_base.DB_NAME, listdir(folder))
 
         db_base.BASE.metadata.create_all(db_base.ENGINE)
-        db_base.SESSIONMAKER()
+        ses = db_base.SESSIONMAKER()
+        ses.close()
 
         self.assertIn(db_base.DB_NAME, listdir(folder))
         remove(join(folder, db_base.DB_NAME))
@@ -68,6 +69,9 @@ class DBBaseTestCase(unittest.TestCase):
 
         ses_two = get_session()
         self.assertIsInstance(ses_two, Session)
+
+        ses_one.close()
+        ses_two.close()
 
         self.assertIn(db_base.DB_NAME, listdir(folder))
         remove(join(folder, db_base.DB_NAME))
