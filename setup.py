@@ -47,5 +47,8 @@ setup(
     ],
 
     install_requires=['sqlalchemy'],
-    extras_require={'dev': ['pycodestyle', 'pylint']}
+    extras_require={
+        'dev': ['pycodestyle', 'pylint'],
+        'doc': ['sphinx']
+    }
 )

@@ -7,6 +7,8 @@ from os.path import join, dirname, abspath
 
 ROOT = dirname(abspath(__file__))
 PKG = join(ROOT, 'frostmark')
+PKG_DOC = join(ROOT, 'doc', 'source')
+PKG_DOC_MAKE = join(ROOT, 'doc', 'make.py')
 CASES = [[
     'pycodestyle',
     '--ignore=none',
@@ -17,7 +19,7 @@ CASES = [[
 ], [
     'pylint',
     '--jobs=0',
-    'check.py', 'setup.py', PKG
+    'check.py', 'setup.py', PKG, PKG_DOC, PKG_DOC_MAKE
 ], [
     'python', '-m', 'unittest', 'discover',
     '--failfast',
