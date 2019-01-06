@@ -20,11 +20,17 @@ class Folder(BASE):
     __ROOT_NAME__ = 'ROOT'
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    name = Column(String, nullable=False, default='')
-    parent_folder_id = Column(Integer, nullable=False, default=0)
+    folder_name = Column(String, nullable=False, default='')
+    parent_folder_id = Column(
+        Integer, ForeignKey('folder.id'),
+        nullable=False, default=0
+    )
 
     # not a column
     bookmarks = relationship('Bookmark', backref=__tablename__)
+    parent_folder = relationship(
+        'Folder', backref=__tablename__, remote_side='Folder.id'
+    )
 
     @staticmethod
     def get_root():
@@ -39,7 +45,7 @@ class Folder(BASE):
             "<Folder("
             "id=%s, name='%s', parent_folder_id=%s"
             ")>" % (
-                self.id, self.name,
+                self.id, self.folder_name,
                 self.parent_folder_id,
             )
         )

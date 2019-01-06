@@ -17,7 +17,7 @@ def folder_check_root(session):
     if not any([fold.id == root_folder[0] for fold in folders]):
         session.add(Folder(
             id=root_folder[0],
-            name=root_folder[1],
+            folder_name=root_folder[1],
             parent_folder_id=root_folder[0]
         ))
     session.commit()
