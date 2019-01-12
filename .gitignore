@@ -12,3 +12,9 @@
 
 # Python documentation
 *doc/build*
+
+# Databases
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal
