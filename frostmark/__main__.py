@@ -1,19 +1,24 @@
-from frostmark.parser import Parser
+'''
+Module for interfacing with the package via python command::
+
+    python -m frostmark
+'''
+from frostmark.parser import PARSER
 
 
-Parser.set_defaults(type='main')
-Parser.console_parser.set_defaults(type='console')
-Parser.gui_parser.set_defaults(type='gui')
+PARSER.set_defaults(type='main')
+PARSER.console_parser.set_defaults(type='console')
+PARSER.gui_parser.set_defaults(type='gui')
 
 
 if __name__ == '__main__':
-    main_parser = Parser.parse_args()
+    MAIN_PARSER = PARSER.parse_args()
 
-    if main_parser.type == 'main':
-        Parser.print_help()
+    if MAIN_PARSER.type == 'main':
+        PARSER.print_help()
         exit()
-    elif main_parser.type == 'console':
+    elif MAIN_PARSER.type == 'console':
         from frostmark.core.console import Console as Client
-    elif main_parser.type == 'gui':
+    elif MAIN_PARSER.type == 'gui':
         from frostmark.core.gui import GUI as Client
-    Client(**vars(main_parser)).run()
+    Client(**vars(MAIN_PARSER)).run()

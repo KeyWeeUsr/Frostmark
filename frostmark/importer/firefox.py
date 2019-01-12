@@ -1,18 +1,27 @@
-from sqlalchemy import (
-    create_engine, Column, Integer, String
-)
-from sqlalchemy.orm.session import sessionmaker, Session
+'''
+Module for retrieving bookmark data from Firefox `places.sqlite`
+and providing a clean tree structure for further use.
+'''
+
+from ensure import ensure_annotations
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm.session import Session
 from sqlalchemy.ext.declarative import (
     declarative_base,
     DeferredReflection
 )
-from frostmark.common import assemble_folder_tree, assemble_bookmark_tree
-from ensure import ensure_annotations
-from frostmark.models import Folder, Bookmark
 from anytree import Node
+
+from frostmark.common import assemble_folder_tree, assemble_bookmark_tree
+from frostmark.models import Folder, Bookmark
 
 
 class FirefoxImporter:
+    '''
+    Assembler for Firefox bookmark node tree.
+    '''
+    # pylint: disable=too-few-public-methods
+
     # toolkit/components/places/nsNavBookmarks.h
     ITEMTYPE_BOOKMARK = 1
     ITEMTYPE_FOLDER = 2
@@ -43,7 +52,7 @@ class FirefoxImporter:
         }
         '''
         ff_folders = session.query(moz_bookmarks).filter(
-            moz_bookmarks.type==FirefoxImporter.ITEMTYPE_FOLDER
+            moz_bookmarks.type == FirefoxImporter.ITEMTYPE_FOLDER
         ).order_by(moz_bookmarks.id).all()
 
         folders = []
@@ -69,9 +78,9 @@ class FirefoxImporter:
             moz_bookmarks,
             moz_places
         ).filter(
-            moz_bookmarks.type==FirefoxImporter.ITEMTYPE_BOOKMARK
+            moz_bookmarks.type == FirefoxImporter.ITEMTYPE_BOOKMARK
         ).filter(
-            moz_bookmarks.fk==moz_places.id
+            moz_bookmarks.fk == moz_places.id
         ).order_by(moz_places.id).all()
 
         bookmarks = []
@@ -94,12 +103,16 @@ class FirefoxImporter:
 
 
 class moz_anno_attributes(FirefoxImporter.BASE):
+    # pylint: disable=too-few-public-methods,missing-docstring,invalid-name
+
     __tablename__ = 'moz_anno_attributes'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String)
 
 
 class moz_annos(FirefoxImporter.BASE):
+    # pylint: disable=too-few-public-methods,missing-docstring,invalid-name
+
     __tablename__ = 'moz_annos'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     place_id = Column(Integer)
@@ -114,6 +127,11 @@ class moz_annos(FirefoxImporter.BASE):
 
 
 class moz_bookmarks(FirefoxImporter.BASE):
+    '''
+    Item info - folders, bookmarks, separators, etc.
+    '''
+    # pylint: disable=too-few-public-methods,invalid-name
+
     __tablename__ = 'moz_bookmarks'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     type = Column(Integer)
@@ -128,6 +146,8 @@ class moz_bookmarks(FirefoxImporter.BASE):
 
 
 class moz_historyvisits(FirefoxImporter.BASE):
+    # pylint: disable=too-few-public-methods,missing-docstring,invalid-name
+
     __tablename__ = 'moz_historyvisits'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     from_visit = Column(Integer)
@@ -138,6 +158,8 @@ class moz_historyvisits(FirefoxImporter.BASE):
 
 
 class moz_inputhistory(FirefoxImporter.BASE):
+    # pylint: disable=too-few-public-methods,missing-docstring,invalid-name
+
     __tablename__ = 'moz_inputhistory'
     place_id = Column(
         Integer, primary_key=True, nullable=False, autoincrement=True
@@ -147,6 +169,8 @@ class moz_inputhistory(FirefoxImporter.BASE):
 
 
 class moz_items_annos(FirefoxImporter.BASE):
+    # pylint: disable=too-few-public-methods,missing-docstring,invalid-name
+
     __tablename__ = 'moz_items_annos'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     item_id = Column(Integer)
@@ -160,7 +184,12 @@ class moz_items_annos(FirefoxImporter.BASE):
     lastModified = Column(Integer)
 
 
-class moz_keywords(FirefoxImporter.BASE):  # tags
+class moz_keywords(FirefoxImporter.BASE):
+    '''
+    Tag info.
+    '''
+    # pylint: disable=too-few-public-methods,invalid-name
+
     __tablename__ = 'moz_keywords'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     keyword = Column(String)
@@ -168,7 +197,12 @@ class moz_keywords(FirefoxImporter.BASE):  # tags
     post_data = Column(String)
 
 
-class moz_places(FirefoxImporter.BASE):  # bookmark info
+class moz_places(FirefoxImporter.BASE):
+    '''
+    Bookmark info.
+    '''
+    # pylint: disable=too-few-public-methods,invalid-name
+
     __tablename__ = 'moz_places'
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     url = Column(String)

@@ -1,9 +1,17 @@
+'''
+Module for retrieving all 'profiles' from specified browser.
+'''
+
 import sys
-from os import environ
-from os.path import join, dirname, abspath, expanduser
+from os import environ, listdir
+from os.path import join, abspath, expanduser
 
 
 def get_location(browser: str):
+    '''
+    Get absolute path of the profiles location for browser.
+    '''
+
     path = None
     if browser == 'firefox':
         if sys.platform == 'darwin':
@@ -26,9 +34,13 @@ def get_location(browser: str):
     return path
 
 
-def get_profiles():
+def get_profiles(browser: str):
+    '''
+    Get all profiles from browser profile location.
+    '''
+
     return [
         filename
-        for filename in listdir(get_location())
+        for filename in listdir(get_location(browser))
         if filename.endswith('.default')
     ]

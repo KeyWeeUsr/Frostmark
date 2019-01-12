@@ -16,6 +16,12 @@ from frostmark.importer.firefox import FirefoxImporter
 
 
 class Importer:
+    '''
+    Interface for retrieving and importing bookmarks into local storage
+    for multiple backends.
+    '''
+    # pylint: disable=too-few-public-methods
+
     @ensure_annotations
     def __init__(self, backend: str):
         self.backend = None
@@ -37,6 +43,11 @@ class Importer:
 
     @ensure_annotations
     def import_from(self, path: str):
+        '''
+        Import bookmarks from particular path into internal storage.
+        '''
+        # pylint: disable=too-many-locals
+
         backend = self.backend
 
         # get the bookmarks tree from file

@@ -1,9 +1,10 @@
-import json
-from pprint import pprint
-from anytree import Node, RenderTree, Walker
-from frostmark.db import BASE
-from frostmark.models import Folder, Bookmark
+'''
+Module for common functions.
+'''
+
+from anytree import Node, RenderTree
 from ensure import ensure_annotations
+from frostmark.models import Folder, Bookmark
 
 
 @ensure_annotations
@@ -80,7 +81,12 @@ def assemble_bookmark_tree(
 
 @ensure_annotations
 def print_bookmark_tree(root: Node):
-    for pre, fill, node in RenderTree(root):
+    '''
+    Print a nested bookmark tree from a root tree `Node`, folders first
+    bookmark with urls second.
+    '''
+
+    for pre, _, node in RenderTree(root):
         if node.node_type == Folder:
             required = ('folder_name', )
             args = [getattr(node, key) for key in required]
