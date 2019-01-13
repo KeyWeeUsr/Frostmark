@@ -4,6 +4,7 @@ Module for common functions.
 
 from anytree import Node, RenderTree, AsciiStyle
 from ensure import ensure_annotations
+from frostmark.db import get_session
 from frostmark.models import Folder, Bookmark
 
 
@@ -83,6 +84,36 @@ def assemble_bookmark_tree(
         node.parent = folders[getattr(node, key)]
 
     return folder_tree_root
+
+
+@ensure_annotations
+def fetch_bookmark_tree() -> Node:
+    '''
+    Fetch folders and bookmarks from the internal database, assemble
+    a bookmark tree and return the root Node
+    '''
+
+    session = get_session()
+    folders = [vars(item) for item in session.query(Folder).all()]
+    bookmarks = [vars(item) for item in session.query(Bookmark).all()]
+    session.close()
+
+    for folder in folders:
+        if folder['id'] != 0:
+            continue
+        folder['parent_folder_id'] = None
+
+    tree = assemble_bookmark_tree(
+        items=bookmarks,
+        key='folder_id',
+        folder_tree_root=assemble_folder_tree(
+            items=folders,
+            key='parent_folder_id',
+            node_type=Folder
+        ),
+        node_type=Bookmark
+    )
+    return tree
 
 
 @ensure_annotations
