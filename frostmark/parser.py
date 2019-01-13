@@ -6,6 +6,8 @@ from argparse import ArgumentParser, Action
 
 from frostmark import VERSION, __name__ as name
 from frostmark.common import fetch_bookmark_tree, print_bookmark_tree
+from frostmark.importer import Importer
+from frostmark.profiles import print_profiles
 from frostmark.core.console import Console
 
 
@@ -75,7 +77,7 @@ PARSER.gui_parser = SUBPARSERS.add_parser('gui')
 # add optional argument for console parser
 PARSER.console_parser.add_argument(
     '-l', '--list-bookmarks',
-    help='Show all available bookmarks as a tree.',
+    help='show all available bookmarks as a tree',
     required=False, nargs=0,
 
     # pylint: disable=unnecessary-lambda
@@ -84,5 +86,38 @@ PARSER.console_parser.add_argument(
         func=lambda *args, **kwargs: print_bookmark_tree(
             fetch_bookmark_tree()
         )
+    )
+)
+
+PARSER.console_parser.add_argument(
+    '-p', '--list-profiles',
+    help='import bookmarks from a browser profile',
+    required=False, nargs=1,
+    metavar=('BROWSER', ),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: print_profiles(
+            kwargs['arg_values'][0]
+        )
+    )
+)
+
+PARSER.console_parser.add_argument(
+    '-i', '--import-bookmarks',
+    help='import bookmarks from a browser profile',
+    required=False, nargs='+',
+    metavar=('BROWSER', 'PROFILE'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: [
+            Importer(
+                kwargs['arg_values'][0]
+            ).import_from(val)
+            for val in kwargs['arg_values'][1:]
+        ]
     )
 )
