@@ -61,7 +61,7 @@ def get_profiles(browser: str) -> list:
         profiles = [
             join(get_location(browser), filename, 'places.sqlite')
             for filename in listdir(get_location(browser))
-            if filename.endswith('.default')
+            if filename.endswith('.default') and exists(filename)
         ]
     elif browser == 'opera':
         # only one profile supported
@@ -70,7 +70,13 @@ def get_profiles(browser: str) -> list:
 
     return profiles
 
+
 @ensure_annotations
 def print_profiles(browser: str):
+    '''
+    Print all possible locations usable for importing for a specific
+    browser such as .sqlite files or JSON files.
+    '''
+
     for item in get_profiles(browser):
         print(item)

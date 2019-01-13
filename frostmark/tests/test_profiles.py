@@ -3,7 +3,7 @@ Test for retrieving various browser profile locations.
 '''
 import unittest
 from unittest.mock import patch
-from os.path import basename
+from os.path import basename, dirname, join
 
 
 class ProfileTestCase(unittest.TestCase):
@@ -17,27 +17,32 @@ class ProfileTestCase(unittest.TestCase):
         '''
 
         from frostmark.profiles import get_profiles
-        expected_profiles = ['1.default', '2.default']
+        found_profiles = ['profile1.default', 'profile2.default']
+        expected_files = [
+            join('profile1.default', 'places.sqlite'),
+            join('profile2.default', 'places.sqlite')
+        ]
+        exi = patch('frostmark.profiles.exists')
         platform = patch('sys.platform', 'win32')
         listdir = patch(
             'frostmark.profiles.listdir',
-            return_value=expected_profiles
+            return_value=found_profiles
         )
 
         # with APPDATA
-        with platform, listdir:
-            self.assertEqual(
-                [basename(path) for path in get_profiles('firefox')],
-                expected_profiles
-            )
+        with exi, platform, listdir:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('firefox')
+            ], expected_files)
 
         # without APPDATA
         env = patch('frostmark.profiles.environ', {})
-        with platform, listdir, env:
-            self.assertEqual(
-                [basename(path) for path in get_profiles('firefox')],
-                expected_profiles
-            )
+        with exi, platform, listdir, env:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('firefox')
+            ], expected_files)
 
     def test_profile_firefox_macos(self):
         '''
@@ -45,18 +50,23 @@ class ProfileTestCase(unittest.TestCase):
         '''
 
         from frostmark.profiles import get_profiles
-        expected_profiles = ['1.default', '2.default']
+        found_profiles = ['profile1.default', 'profile2.default']
+        expected_files = [
+            join('profile1.default', 'places.sqlite'),
+            join('profile2.default', 'places.sqlite')
+        ]
+        exi = patch('frostmark.profiles.exists')
         platform = patch('sys.platform', 'darwin')
         listdir = patch(
             'frostmark.profiles.listdir',
-            return_value=expected_profiles
+            return_value=found_profiles
         )
 
-        with platform, listdir:
-            self.assertEqual(
-                [basename(path) for path in get_profiles('firefox')],
-                expected_profiles
-            )
+        with exi, platform, listdir:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('firefox')
+            ], expected_files)
 
     def test_profile_opera_win(self):
         '''
@@ -64,24 +74,28 @@ class ProfileTestCase(unittest.TestCase):
         '''
 
         from frostmark.profiles import get_profiles
-        expected_profiles = ['Opera stable']
+        found_profiles = ['Opera stable']
+        expected_files = [
+            join('Opera stable', 'Bookmarks')
+        ]
+        exi = patch('frostmark.profiles.exists')
         platform = patch('sys.platform', 'win32')
         listdir = patch(
             'frostmark.profiles.listdir',
-            return_value=expected_profiles
+            return_value=found_profiles
         )
 
         # with APPDATA
-        with platform, listdir:
-            self.assertEqual(
-                [basename(path) for path in get_profiles('opera')],
-                expected_profiles
-            )
+        with exi, platform, listdir:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('opera')
+            ], expected_files)
 
         # without APPDATA
         env = patch('frostmark.profiles.environ', {})
-        with platform, listdir, env:
-            self.assertEqual(
-                [basename(path) for path in get_profiles('opera')],
-                expected_profiles
-            )
+        with exi, platform, listdir, env:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('opera')
+            ], expected_files)
