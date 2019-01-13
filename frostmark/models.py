@@ -2,6 +2,7 @@
 ORM SQLAlchemy models for Frostmark application storage.
 '''
 
+from ensure import ensure_annotations
 from sqlalchemy import Column, Integer, String, BLOB, ForeignKey
 from sqlalchemy.orm import relationship
 from frostmark.db import BASE
@@ -33,7 +34,8 @@ class Folder(BASE):
     )
 
     @staticmethod
-    def get_root():
+    @ensure_annotations
+    def get_root() -> tuple:
         '''
         Return root folder constants to e.g. create root folder value in DB
         if it does not exist.
