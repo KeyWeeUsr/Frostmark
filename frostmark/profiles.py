@@ -59,7 +59,7 @@ def get_profiles(browser: str) -> list:
     profiles = []
     if browser == 'firefox':
         profiles = [
-            filename
+            join(get_location(browser), filename)
             for filename in listdir(get_location(browser))
             if filename.endswith('.default')
         ]
