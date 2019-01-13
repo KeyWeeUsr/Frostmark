@@ -78,7 +78,6 @@ class Importer:
             key=lambda item: item.parent_folder_id or 0
         )
         for folder in sorted_folders:
-            print(folders, folder.parent_folder_id)
             kwargs = {
                 'folder_name': folder.folder_name
             }
