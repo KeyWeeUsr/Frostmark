@@ -126,7 +126,7 @@ class TreeTestCase(unittest.TestCase):
         from frostmark.models import Folder
 
         tree = assemble_folder_tree(
-            self.FOLDER_DATA,
+            items=self.FOLDER_DATA,
             key='parent_folder_id',
             node_type=Folder
         )
@@ -175,7 +175,7 @@ class TreeTestCase(unittest.TestCase):
             '        +-- [F] seven',
         ]
         tree = assemble_folder_tree(
-            self.FOLDER_DATA,
+            items=self.FOLDER_DATA,
             key='parent_folder_id',
             node_type=Folder
         )
@@ -201,7 +201,7 @@ class TreeTestCase(unittest.TestCase):
         from frostmark.models import Folder, Bookmark
 
         folder_tree = assemble_folder_tree(
-            self.FOLDER_DATA,
+            items=self.FOLDER_DATA,
             key='parent_folder_id',
             node_type=Folder
         )
@@ -301,7 +301,7 @@ class TreeTestCase(unittest.TestCase):
             '+-- [B] c <url>',
         ]
         folder_tree = assemble_folder_tree(
-            self.FOLDER_DATA,
+            items=self.FOLDER_DATA,
             key='parent_folder_id',
             node_type=Folder
         )
@@ -315,7 +315,7 @@ class TreeTestCase(unittest.TestCase):
         with patch('builtins.print') as output:
             print_bookmark_tree(tree)
 
-        self.assertEqual(len(output.call_args_list), len(expected_calls))
         for idx, item in enumerate(output.call_args_list):
             args, _ = item
             self.assertEqual(args[0], expected_calls[idx])
+        self.assertEqual(len(output.call_args_list), len(expected_calls))
