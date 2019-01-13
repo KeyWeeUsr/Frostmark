@@ -4,7 +4,7 @@ Module for retrieving all 'profiles' from specified browser.
 
 import sys
 from os import environ, listdir
-from os.path import join, abspath, expanduser
+from os.path import join, abspath, expanduser, exists
 
 from ensure import ensure_annotations
 
@@ -59,12 +59,18 @@ def get_profiles(browser: str) -> list:
     profiles = []
     if browser == 'firefox':
         profiles = [
-            join(get_location(browser), filename)
+            join(get_location(browser), filename, 'places.sqlite')
             for filename in listdir(get_location(browser))
             if filename.endswith('.default')
         ]
     elif browser == 'opera':
         # only one profile supported
-        profiles = [get_location(browser)]
+        location = join(get_location(browser), 'Bookmarks')
+        profiles = [location] if exists(location) else []
 
     return profiles
+
+@ensure_annotations
+def print_profiles(browser: str):
+    for item in get_profiles(browser):
+        print(item)
