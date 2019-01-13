@@ -77,14 +77,38 @@ class Importer:
             # parent_folder_id is None for root folder
             key=lambda item: item.parent_folder_id or 0
         )
-        for folder in sorted_folders:
+
+        # first sort the tree by parent IDs so that there is each parent
+        # available, however in case there is a kind-of circular relationship
+        # between the folders e.g. the ID of a child is smaller than ID of
+        # a parent which might be caused by browser importing old bookmarks
+        # from database directly or from a different browser while incorrectly
+        # setting IDs (or better said re-using already existing IDs when
+        # possible), therefore sorting by parent ID would work, but when trying
+        # to access the parent a KeyError would be raised because of parent
+        # not being available yet due to higher ID than the child has
+        #
+        # for that reason try to sort with parent ID first and postpone
+        # the relationship evaluation by using second/third/etc/... item
+        # in the sorted list until there is parent ID available (or throw
+        # IndexError in the end which would pretty much mean that the browser
+        # DB is just broken due to missing parent / dangling children)
+        idx = 0
+        while sorted_folders:
+            folder = sorted_folders[idx]
+
             kwargs = {
                 'folder_name': folder.folder_name
             }
             if folder.parent_folder_id:
                 # in case there is a parent, get the Folder object
                 # and pull its ID after flush() (otherwise it's None)
-                real_id = sqla_folders[folder.parent_folder_id].id
+                try:
+                    real_id = sqla_folders[folder.parent_folder_id].id
+                except KeyError:
+                    idx += 1
+                    continue
+
                 kwargs['parent_folder_id'] = real_id
 
             new_folder = Folder(**kwargs)
@@ -96,6 +120,10 @@ class Importer:
 
             # preserve the original ID and point to a SQLA object
             sqla_folders[folder.id] = new_folder
+
+            # remove current folder
+            idx = 0
+            sorted_folders.remove(folder)
 
         # add bookmarks
         for key in sorted(bookmarks.keys()):
