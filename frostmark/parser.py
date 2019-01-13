@@ -5,6 +5,7 @@ Module for parsing arguments from console.
 from argparse import ArgumentParser, Action
 
 from frostmark import VERSION, __name__ as name
+from frostmark.common import fetch_bookmark_tree, print_bookmark_tree
 from frostmark.core.console import Console
 
 
@@ -70,3 +71,18 @@ SUBPARSERS = PARSER.add_subparsers()
 # pylint: disable=attribute-defined-outside-init
 PARSER.console_parser = SUBPARSERS.add_parser('console')
 PARSER.gui_parser = SUBPARSERS.add_parser('gui')
+
+# add optional argument for console parser
+PARSER.console_parser.add_argument(
+    '-l', '--list-bookmarks',
+    help='Show all available bookmarks as a tree.',
+    required=False, nargs=0,
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: print_bookmark_tree(
+            fetch_bookmark_tree()
+        )
+    )
+)
