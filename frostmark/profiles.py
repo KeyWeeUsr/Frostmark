@@ -6,8 +6,11 @@ import sys
 from os import environ, listdir
 from os.path import join, abspath, expanduser
 
+from ensure import ensure_annotations
 
-def get_location(browser: str):
+
+@ensure_annotations
+def get_location(browser: str) -> str:
     '''
     Get absolute path of the profiles location for browser.
     '''
@@ -31,16 +34,37 @@ def get_location(browser: str):
                     abspath(expanduser('~')), 'AppData', 'Roaming',
                     'Mozilla', 'Firefox', 'Profiles'
                 )
+
+    elif browser == 'opera':
+        if sys.platform == 'win32':
+            if 'APPDATA' in environ:
+                path = join(
+                    environ['APPDATA'],
+                    'opera software', 'Opera stable'
+                )
+            else:
+                path = join(
+                    abspath(expanduser('~')), 'AppData', 'Roaming',
+                    'opera software', 'Opera stable'
+                )
     return path
 
 
-def get_profiles(browser: str):
+@ensure_annotations
+def get_profiles(browser: str) -> list:
     '''
     Get all profiles from browser profile location.
     '''
 
-    return [
-        filename
-        for filename in listdir(get_location(browser))
-        if filename.endswith('.default')
-    ]
+    profiles = []
+    if browser == 'firefox':
+        profiles = [
+            filename
+            for filename in listdir(get_location(browser))
+            if filename.endswith('.default')
+        ]
+    elif browser == 'opera':
+        # only one profile supported
+        profiles = [get_location(browser)]
+
+    return profiles
