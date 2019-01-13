@@ -3,13 +3,13 @@ Module for creating SQLite DB schema and session retrieving.
 '''
 
 from frostmark.db_base import BASE, SESSIONMAKER, ENGINE
-from frostmark.models import Folder, Bookmark  # pylint: disable=unused-import
 
 
 def folder_check_root(session):
     '''
     Check whether default rows for Folder model exist and create them if not.
     '''
+    from frostmark.models import Folder
 
     folders = session.query(Folder).all()
     root_folder = Folder.get_root()
