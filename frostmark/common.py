@@ -2,7 +2,7 @@
 Module for common functions.
 '''
 
-from anytree import Node, RenderTree
+from anytree import Node, RenderTree, AsciiStyle
 from ensure import ensure_annotations
 from frostmark.models import Folder, Bookmark
 
@@ -11,6 +11,9 @@ from frostmark.models import Folder, Bookmark
 def assemble_folder_tree(items: list, key: str, node_type) -> Node:
     '''
     Assemble a folder tree, return a root node.
+
+    Use `key` argument as a one-side parent <- child relationship
+    between folder nodes.
 
     Using the behavior that the parent node keeps a hard reference
     to the children therefore removing a local ref won't cripple
@@ -45,6 +48,9 @@ def assemble_bookmark_tree(
 ) -> Node:
     '''
     Assemble a folder tree, return a root node.
+
+    Use `key` argument as a one-side parent <- child relationship
+    between folder and bookmark node.
 
     Using the behavior that the parent node keeps a hard reference
     to the children therefore removing a local ref won't cripple
@@ -86,7 +92,7 @@ def print_bookmark_tree(root: Node):
     bookmark with urls second.
     '''
 
-    for pre, _, node in RenderTree(root):
+    for pre, _, node in RenderTree(root, style=AsciiStyle()):
         if node.node_type == Folder:
             required = ('folder_name', )
             args = [getattr(node, key) for key in required]
