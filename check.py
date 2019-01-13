@@ -21,11 +21,14 @@ CASES = [[
     '--jobs=0',
     'check.py', 'setup.py', PKG, PKG_DOC, PKG_DOC_MAKE
 ], [
-    'python', '-m', 'unittest', 'discover',
+    'coverage', 'run', '--source', PKG,
+    '-m', 'unittest', 'discover',
     '--failfast',
     '--catch',
     '--start-directory', join(PKG, 'tests'),
     '--top-level-directory', PKG
+], [
+    'coverage', 'report', '--show-missing'
 ]]
 
 
