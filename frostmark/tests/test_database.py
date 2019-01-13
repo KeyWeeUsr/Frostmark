@@ -75,7 +75,3 @@ class DBBaseTestCase(unittest.TestCase):
 
         self.assertIn(db_base.DB_NAME, listdir(folder))
         remove(join(folder, db_base.DB_NAME))
-
-
-if __name__ == '__main__':
-    unittest.main()
