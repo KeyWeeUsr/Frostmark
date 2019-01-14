@@ -13,6 +13,7 @@ from frostmark.db import get_session
 from frostmark.common import traverse
 from frostmark.models import Folder, Bookmark
 from frostmark.importer.firefox import FirefoxImporter
+from frostmark.importer.opera import OperaImporter
 
 
 class Importer:
@@ -27,6 +28,8 @@ class Importer:
         self.backend = None
         if backend == 'firefox':
             self.backend = FirefoxImporter()
+        elif backend == 'opera':
+            self.backend = OperaImporter()
 
     @staticmethod
     @ensure_annotations
@@ -51,7 +54,10 @@ class Importer:
         backend = self.backend
 
         # get the bookmarks tree from file
-        source = self._path_session(path=path, base=backend.BASE)
+        if isinstance(backend, FirefoxImporter):
+            source = self._path_session(path=path, base=backend.BASE)
+        elif isinstance(backend, OperaImporter):
+            source = path
         tree = backend.assemble_import_tree(source)
 
         # open internal DB

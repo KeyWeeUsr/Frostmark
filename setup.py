@@ -46,7 +46,7 @@ setup(
         'Programming Language :: Python :: 3.7'
     ],
 
-    install_requires=['sqlalchemy'],
+    install_requires=['ensure', 'sqlalchemy'],
     extras_require={
         'dev': ['pycodestyle', 'pylint', 'coverage'],
         'doc': ['sphinx']
