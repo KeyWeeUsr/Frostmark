@@ -11,14 +11,24 @@ PARSER.console_parser.set_defaults(type='console')
 PARSER.gui_parser.set_defaults(type='gui')
 
 
-if __name__ == '__main__':
-    MAIN_PARSER = PARSER.parse_args()
+def main(name):
+    '''
+    Main function for module entrypoint.
+    '''
 
-    if MAIN_PARSER.type == 'main':
+    if name != '__main__':
+        return
+
+    main_parser = PARSER.parse_args()
+
+    if main_parser.type == 'main':
         PARSER.print_help()
         exit()
-    elif MAIN_PARSER.type == 'console':
+    elif main_parser.type == 'console':
         from frostmark.core.console import Console as Client
-    elif MAIN_PARSER.type == 'gui':
+    elif main_parser.type == 'gui':
         from frostmark.core.gui import GUI as Client
-    Client(**vars(MAIN_PARSER)).run()
+    Client(**vars(main_parser)).run()
+
+
+main(__name__)
