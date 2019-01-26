@@ -3,12 +3,16 @@ Style checker for Frostmark.
 """
 
 from subprocess import Popen
+from os import environ
 from os.path import join, dirname, abspath
 
 ROOT = dirname(abspath(__file__))
 PKG = join(ROOT, 'frostmark')
 PKG_DOC = join(ROOT, 'doc', 'source')
 PKG_DOC_MAKE = join(ROOT, 'doc', 'make.py')
+
+DO_PROFILE = False
+
 CASES = [[
     'pycodestyle',
     '--ignore=none',
@@ -33,10 +37,20 @@ CASES = [[
 
 
 if __name__ == '__main__':
+    CASES_LEN = len(CASES)
     for i, test in enumerate(CASES):
+        if DO_PROFILE:
+            environ['PYTHONOPTIMIZE'] = 1
+
         proc = Popen(test)
         proc.communicate()
-        print(f'[{i + 1}/{len(CASES)}] ', end='')
+
+        if DO_PROFILE:
+            del environ['PYTHONOPTIMIZE']
+
+        current = str(i + 1).zfill(len(str(CASES_LEN)))
+        print(f'[{current}/{CASES_LEN}] ', end='')
+
         if proc.returncode == 0:
             print('Success!')
         else:
