@@ -3,6 +3,7 @@ Module for interfacing with the package via python command::
 
     python -m frostmark
 '''
+from ensure import ensure_annotations
 from frostmark.parser import PARSER
 
 
@@ -11,7 +12,8 @@ PARSER.console_parser.set_defaults(type='console')
 PARSER.gui_parser.set_defaults(type='gui')
 
 
-def main(name):
+@ensure_annotations
+def main(name: str = '__main__'):
     '''
     Main function for module entrypoint.
     '''

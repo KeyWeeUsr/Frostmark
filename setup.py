@@ -34,7 +34,6 @@ setup(
 
     url=REPO,
     download_url=REPO + '/tarball/' + VERSION,
-
     classifiers=[
         'Development Status :: 1 - Planning',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
@@ -47,6 +46,11 @@ setup(
         'Programming Language :: Python :: 3.7'
     ],
 
+    entry_points={
+        'console_scripts': [
+            'frostmark = frostmark.__main__:main'
+        ]
+    },
     install_requires=['ensure', 'sqlalchemy'],
     extras_require={
         'dev': ['pycodestyle', 'pylint', 'coverage'],
