@@ -15,11 +15,11 @@ list see the documentation: http://www.sphinx-doc.org/en/master/config
 
 import sys
 from os.path import join, dirname, abspath
-from frostmark import VERSION
 
 root_folder = dirname(dirname(dirname(abspath(__file__))))
 sys.path.insert(0, join(root_folder, 'frostmark'))
 
+from frostmark import VERSION
 
 # -- Project information -----------------------------------------------------
 
