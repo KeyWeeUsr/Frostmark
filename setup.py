@@ -50,6 +50,6 @@ setup(
     install_requires=['ensure', 'sqlalchemy'],
     extras_require={
         'dev': ['pycodestyle', 'pylint', 'coverage'],
-        'doc': ['sphinx']
+        'doc': ['sphinx>=1.8.1']
     }
 )
