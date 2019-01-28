@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Test for importing bookmarks from various browsers.
 '''
@@ -258,6 +259,102 @@ class ImportTestCase(unittest.TestCase):
         Importer('opera').import_from(join(
             dirname(abspath(__file__)),
             'sample_opera.json'
+        ))
+        self.assertIn(db_base.DB_NAME, listdir(folder))
+
+        # fetch bookmarks from internal db and test the console output
+        with patch('builtins.print') as output:
+            print_bookmark_tree(fetch_bookmark_tree())
+
+        for idx, item in enumerate(output.call_args_list):
+            args, _ = item
+            self.assertEqual(args[0], expected_calls[idx])
+        self.assertEqual(len(output.call_args_list), len(expected_calls))
+
+        # remove internal DB
+        remove(join(folder, db_base.DB_NAME))
+
+    def test_pull_chrome(self):
+        '''
+        Test fetching Chrome profile.
+        '''
+
+        from anytree import Node
+        from frostmark.common import traverse
+        from frostmark.models import Folder, Bookmark
+        from frostmark.importer.chrome import ChromeImporter
+
+        sample = join(
+            dirname(abspath(__file__)),
+            'sample_chrome.json'
+        )
+
+        # pylint: disable=protected-access
+        tree = ChromeImporter.assemble_import_tree(sample)
+        flat_tree = traverse(tree)
+
+        self.assertIsInstance(tree, Node)
+
+        self.maxDiff = None  # pylint: disable=invalid-name
+        self.assertEqual([
+            (item.folder_name, item.node_type)
+
+            if item.node_type == Folder
+            else (item.title, item.node_type)
+
+            for item in flat_tree
+        ], [
+            ('<no title>', Folder),
+            ('Panel so záložkami', Folder),
+            ('folder', Folder),
+            ('nestedfolder', Folder),
+            ('YouTube', Bookmark),
+            ('emptyfolder', Folder),
+            ('Google', Bookmark),
+            ('PortableApps.com', Bookmark),
+            ('Ostatné', Folder),
+            ('Mapy Google', Bookmark),
+            ('Záložky v mobile', Folder)
+        ])
+
+    def test_import_chrome(self):
+        '''
+        Test importing bookmark tree into internal DB.
+        '''
+
+        from frostmark import db_base
+        from frostmark import user_data
+        from frostmark.common import fetch_bookmark_tree, print_bookmark_tree
+        from frostmark.importer import Importer
+
+        urls = [
+            'https://www.youtube.com/',
+            'https://www.google.com/',
+            'http://portableapps.com/',
+            'https://www.google.com/maps'
+        ]
+        expected_calls = [
+            f'[F] ROOT',
+            f'|-- [F] <no title>',
+            f'|-- [F] Panel so záložkami',
+            f'|   |-- [F] folder',
+            f'|   |   |-- [F] nestedfolder',
+            f'|   |   |   +-- [B] YouTube {urls[0]}',
+            f'|   |   |-- [F] emptyfolder',
+            f'|   |   +-- [B] Google {urls[1]}',
+            f'|   +-- [B] PortableApps.com {urls[2]}',
+            f'|-- [F] Ostatné',
+            f'|   +-- [B] Mapy Google {urls[3]}',
+            f'+-- [F] Záložky v mobile'
+        ]
+
+        folder = dirname(abspath(user_data.__file__))
+        self.assertNotIn(db_base.DB_NAME, listdir(folder))
+
+        # import bookmarks from sample firefox database
+        Importer('chrome').import_from(join(
+            dirname(abspath(__file__)),
+            'sample_chrome.json'
         ))
         self.assertIn(db_base.DB_NAME, listdir(folder))
 

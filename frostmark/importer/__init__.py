@@ -14,6 +14,7 @@ from frostmark.common import traverse
 from frostmark.models import Folder, Bookmark
 from frostmark.importer.firefox import FirefoxImporter
 from frostmark.importer.opera import OperaImporter
+from frostmark.importer.chrome import ChromeImporter
 
 
 class Importer:
@@ -30,6 +31,8 @@ class Importer:
             self.backend = FirefoxImporter()
         elif backend == 'opera':
             self.backend = OperaImporter()
+        elif backend == 'chrome':
+            self.backend = ChromeImporter()
 
     @staticmethod
     @ensure_annotations
@@ -57,6 +60,8 @@ class Importer:
         if isinstance(backend, FirefoxImporter):
             source = self._path_session(path=path, base=backend.BASE)
         elif isinstance(backend, OperaImporter):
+            source = path
+        elif isinstance(backend, ChromeImporter):
             source = path
         tree = backend.assemble_import_tree(source)
 

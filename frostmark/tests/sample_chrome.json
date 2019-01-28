@@ -1,0 +1,84 @@
+{
+   "checksum": "2b690dbe17042574f741aeb321ec0a94",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13028788410338143",
+            "id": "5",
+            "name": "PortableApps.com",
+            "type": "url",
+            "url": "http://portableapps.com/"
+         }, {
+            "children": [ {
+               "date_added": "13193188999665844",
+               "id": "8",
+               "meta_info": {
+                  "last_visited_desktop": "13193188999665922"
+               },
+               "name": "Google",
+               "type": "url",
+               "url": "https://www.google.com/"
+            }, {
+               "children": [ {
+                  "date_added": "13193189060817847",
+                  "id": "12",
+                  "meta_info": {
+                     "last_visited_desktop": "13193189060817928"
+                  },
+                  "name": "YouTube",
+                  "type": "url",
+                  "url": "https://www.youtube.com/"
+               } ],
+               "date_added": "13193189008061495",
+               "date_modified": "13193189080402355",
+               "id": "9",
+               "name": "nestedfolder",
+               "type": "folder"
+            }, {
+               "children": [  ],
+               "date_added": "13193189115780474",
+               "date_modified": "13193189115780475",
+               "id": "14",
+               "name": "emptyfolder",
+               "type": "folder"
+            } ],
+            "date_added": "13193188992542912",
+            "date_modified": "13193189115780561",
+            "id": "7",
+            "name": "folder",
+            "type": "folder"
+         } ],
+         "date_added": "0",
+         "date_modified": "13193188992543343",
+         "id": "1",
+         "name": "Panel so záložkami",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "date_added": "13193189080402355",
+            "id": "13",
+            "meta_info": {
+               "last_visited_desktop": "13193189080402447"
+            },
+            "name": "Mapy Google",
+            "type": "url",
+            "url": "https://www.google.com/maps"
+         } ],
+         "date_added": "0",
+         "date_modified": "13193189126360376",
+         "id": "2",
+         "name": "Ostatné",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13028788397005139",
+         "date_modified": "0",
+         "id": "4",
+         "name": "Záložky v mobile",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
