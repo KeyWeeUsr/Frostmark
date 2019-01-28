@@ -13,12 +13,6 @@ list see the documentation: http://www.sphinx-doc.org/en/master/config
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-import sys
-from os.path import join, dirname, abspath
-
-root_folder = dirname(dirname(dirname(dirname(abspath(__file__)))))
-sys.path.insert(0, join(root_folder, 'frostmark'))
-
 from frostmark import VERSION
 
 # -- Project information -----------------------------------------------------
