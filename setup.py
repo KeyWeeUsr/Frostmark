@@ -4,7 +4,7 @@ Basic setup.py
 """
 
 from os.path import abspath, dirname, join
-from setuptools import setup
+from setuptools import setup, find_packages
 from frostmark import VERSION
 
 
@@ -27,6 +27,7 @@ setup(
 
     description='TBD',
     long_description='TBD',
+    packages=find_packages(),
 
     author='Peter Badida',
     author_email='keyweeusr@gmail.com',
