@@ -51,7 +51,7 @@ setup(
             'frostmark = frostmark.__main__:main'
         ]
     },
-    install_requires=['ensure', 'sqlalchemy'],
+    install_requires=['ensure', 'sqlalchemy', 'anytree'],
     extras_require={
         'dev': ['pycodestyle', 'pylint', 'coverage'],
         'doc': ['sphinx>=1.8.1']
