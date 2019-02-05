@@ -20,7 +20,7 @@ with open(join(ROOT, 'LICENSE.txt')) as fd:
     GPL = fd.read()
 
 
-setup(
+SETUP_KWARGS = dict(
     name='frostmark',
     version=VERSION,
     license=GPL,
@@ -57,3 +57,7 @@ setup(
         'doc': ['sphinx>=1.8.1']
     }
 )
+
+
+if __name__ == '__main__':
+    setup(**SETUP_KWARGS)
