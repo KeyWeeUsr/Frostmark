@@ -53,7 +53,7 @@ SETUP_KWARGS = dict(
     },
     install_requires=['ensure', 'sqlalchemy', 'anytree'],
     extras_require={
-        'dev': ['pycodestyle', 'pylint', 'coverage'],
+        'dev': ['nox', 'pycodestyle', 'pylint', 'coverage'],
         'doc': ['sphinx>=1.8.1']
     }
 )

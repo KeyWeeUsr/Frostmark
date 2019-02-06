@@ -5,14 +5,21 @@ $ pip install --upgrade nox
 $ nox
 """
 
-from os import environ
-from os.path import join, expanduser
+from os.path import join
 import nox
 from setup import ROOT, SETUP_KWARGS
 
 PKG = join(ROOT, 'frostmark')
 PKG_DOC = join(ROOT, 'doc', 'source')
 PKG_DOC_MAKE = join(ROOT, 'doc', 'make.py')
+
+
+def install_deps(session):
+    """
+    Install dependencies.
+    """
+    for pkg in SETUP_KWARGS['install_requires']:
+        session.install(pkg)
 
 
 @nox.session
@@ -24,6 +31,8 @@ def lint(session):
     # install dev packages
     for dev in SETUP_KWARGS['extras_require']['dev']:
         session.install(dev)
+
+    install_deps(session)
 
     # run pycodestyle with custom flags
     session.run(
@@ -44,9 +53,7 @@ def tests(session):
     Install and run test runner + coverage report.
     """
 
-    # install dependencies
-    for pkg in SETUP_KWARGS['install_requires']:
-        session.install(pkg)
+    install_deps(session)
 
     # install this package as editable
     session.install('--editable', '.')
