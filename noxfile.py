@@ -5,21 +5,17 @@ $ pip install --upgrade nox
 $ nox
 """
 
-from os.path import join
+from os import mkdir
+from os.path import join, exists
+from shutil import rmtree
+
 import nox
-from setup import ROOT, SETUP_KWARGS
+from setup import ROOT
 
 PKG = join(ROOT, 'frostmark')
 PKG_DOC = join(ROOT, 'doc', 'source')
+PKG_DOC_BUILD = join(ROOT, 'doc', 'build')
 PKG_DOC_MAKE = join(ROOT, 'doc', 'make.py')
-
-
-def install_deps(session):
-    """
-    Install dependencies.
-    """
-    for pkg in SETUP_KWARGS['install_requires']:
-        session.install(pkg)
 
 
 @nox.session
@@ -29,10 +25,7 @@ def lint(session):
     """
 
     # install dev packages
-    for dev in SETUP_KWARGS['extras_require']['dev']:
-        session.install(dev)
-
-    install_deps(session)
+    session.install('--editable', '.[dev]')
 
     # run pycodestyle with custom flags
     session.run(
@@ -48,19 +41,17 @@ def lint(session):
 
 
 @nox.session
-def tests(session):
+def test(session):
     """
-    Install and run test runner + coverage report.
+    Install and run test runner + coverage report as dev.
     """
-
-    install_deps(session)
 
     # install this package as editable
-    session.install('--editable', '.')
+    session.install('--editable', '.[dev]')
 
     # run unittests with coverage package and create report
     session.run(
-        'coverage', 'run', '--source', PKG,
+        'coverage', 'run', '--branch', '--source', PKG,
         '-m', 'unittest', 'discover',
         '--failfast',
         '--catch',
