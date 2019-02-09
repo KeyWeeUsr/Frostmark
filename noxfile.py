@@ -61,3 +61,24 @@ def test(session):
 
     # show coverage report
     session.run('coverage', 'report', '--show-missing')
+
+
+@nox.session
+def doc(session):
+    """
+    Install and run Sphinx to build documentation.
+    """
+
+    # install this package as editable
+    session.install('--editable', '.[doc]')
+
+    # clean first in case there is previous build
+    if exists(PKG_DOC_BUILD):
+        rmtree(PKG_DOC_BUILD)
+        mkdir(PKG_DOC_BUILD)
+
+    # run unittests with coverage package and create report
+    session.run(
+        'sphinx-build', '-M', 'html', PKG_DOC,
+        join(ROOT, 'doc', 'build'), '-j', 'auto', '-n', '-W'
+    )
