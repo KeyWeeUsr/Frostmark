@@ -2,9 +2,10 @@
 Test for exporting bookmarks to various browsers' formats.
 '''
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from os import listdir, remove
 from os.path import join, abspath, dirname
+from io import BytesIO
 
 
 class ExportTestCase(unittest.TestCase):
@@ -88,13 +89,24 @@ class ExportTestCase(unittest.TestCase):
         ))
         self.assertIn(db_base.DB_NAME, listdir(folder))
 
-        with patch('builtins.print') as output:
-            Exporter.export_to('')
-            args, _ = output.call_args_list[0]
-            self.assertIsInstance(args, tuple)
+        # file-like object to catch HTML output
+        bytesout = BytesIO()
 
-            args = args[0]
-            self.assertEqual(args, expected)
+        # mock context manager to return BytesIO
+        mocked_file = MagicMock(__enter__=MagicMock(return_value=bytesout))
+
+        # mock builtins.open() to return mocked_file
+        mocked_open = MagicMock(return_value=mocked_file)
+        with patch('builtins.open', new=mocked_open) as output:
+            # export HTML to "out.html" file
+            Exporter.export_to(join(folder, 'out.html'))
+
+            # "file" was created and written to
+            output.assert_called_once_with(join(folder, 'out.html'), 'rb')
+
+            # rewind and compare
+            bytesout.seek(0)
+            self.assertEqual(bytesout.read().decode('utf-8'), expected)
 
         # remove internal DB
         remove(join(folder, db_base.DB_NAME))
