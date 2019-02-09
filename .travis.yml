@@ -3,5 +3,5 @@ python:
     - "3.6"
 
 script:
-    - pip install nox
+    - pip install --editable .[dev]
     - nox
