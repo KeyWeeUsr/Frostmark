@@ -2,7 +2,7 @@
 Test for command-line args parsing.
 '''
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 
 class MainTestCase(unittest.TestCase):
@@ -61,3 +61,21 @@ class MainTestCase(unittest.TestCase):
                 # not implemented yet, GUI is None
                 from frostmark.__main__ import main
                 main('__main__')
+
+    def test_main_console_export(self):
+        '''
+        Test exporting from console mode.
+        '''
+
+        args = [__file__, 'console', '-e', 'PATH']
+        export_to = MagicMock()
+        export_patch = patch(
+            target='frostmark.exporter.Exporter.export_to',
+            new=export_to
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), export_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            export_to.assert_called_once_with('PATH')
