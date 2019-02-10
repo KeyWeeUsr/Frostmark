@@ -7,6 +7,7 @@ from argparse import ArgumentParser, Action
 from frostmark import VERSION, __name__ as name
 from frostmark.common import fetch_bookmark_tree, print_bookmark_tree
 from frostmark.importer import Importer
+from frostmark.exporter import Exporter
 from frostmark.profiles import print_profiles
 from frostmark.core.console import Console
 
@@ -119,5 +120,20 @@ PARSER.console_parser.add_argument(
             ).import_from(val)
             for val in kwargs['arg_values'][1:]
         ]
+    )
+)
+
+PARSER.console_parser.add_argument(
+    '-e', '--export-bookmarks',
+    help='export bookmarks to an HTML format',
+    required=False, nargs=1,
+    metavar=('PATH', ),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Exporter().export_to(
+            kwargs['arg_values'][0]
+        )
     )
 )
