@@ -57,8 +57,7 @@ class MainTestCase(unittest.TestCase):
         '''
 
         with patch('sys.stdout'), patch('sys.argv', [__file__, 'gui']):
-            with self.assertRaises(TypeError):
-                # not implemented yet, GUI is None
+            with self.assertRaises(NotImplementedError):
                 from frostmark.__main__ import main
                 main('__main__')
 
