@@ -3,5 +3,6 @@ python:
     - "3.6"
 
 script:
-    - pip install --editable .[dev,doc]
+    - pip install --editable .[ci,dev,doc]
     - python check.py
+    - coveralls || true
