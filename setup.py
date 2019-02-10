@@ -20,7 +20,7 @@ with open(join(ROOT, 'LICENSE.txt')) as fd:
     GPL = fd.read()
 
 
-SETUP_KWARGS = dict(
+setup(
     name='frostmark',
     version=VERSION,
     license=GPL,
@@ -53,11 +53,7 @@ SETUP_KWARGS = dict(
     },
     install_requires=['ensure', 'sqlalchemy', 'anytree'],
     extras_require={
-        'dev': ['nox', 'pycodestyle', 'pylint', 'coverage'],
+        'dev': ['pycodestyle', 'pylint', 'coverage'],
         'doc': ['sphinx>=1.8.1']
     }
 )
-
-
-if __name__ == '__main__':
-    setup(**SETUP_KWARGS)

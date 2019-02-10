@@ -3,5 +3,5 @@ python:
     - "3.6"
 
 script:
-    - pip install --editable .[dev]
-    - nox
+    - pip install --editable .[dev,doc]
+    - python check.py
