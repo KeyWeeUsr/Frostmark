@@ -57,16 +57,19 @@ def get_profiles(browser: str) -> list:
     '''
 
     profiles = []
+    loc = get_location(browser)
+
     if browser == 'firefox':
         profiles = [
-            join(get_location(browser), filename, 'places.sqlite')
-            for filename in listdir(get_location(browser))
-            if filename.endswith('.default') and exists(filename)
+            join(loc, fname, 'places.sqlite')
+            for fname in listdir(loc)
+            if fname.endswith('.default') and join(loc, fname, 'places.sqlite')
         ]
+
     elif browser == 'opera':
         # only one profile supported
-        location = join(get_location(browser), 'Bookmarks')
-        profiles = [location] if exists(location) else []
+        bm_location = join(loc, 'Bookmarks')
+        profiles = [bm_location] if exists(bm_location) else []
 
     return profiles
 
