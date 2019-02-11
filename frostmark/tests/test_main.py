@@ -86,7 +86,7 @@ class MainTestCase(unittest.TestCase):
 
         args = [
             __file__, 'console', '--change-parent-folder',
-            'FOLDER_ID', 'PARENT_ID'
+            '123', '456'
         ]
         cpf = MagicMock()
         cpf_patch = patch(
@@ -99,6 +99,6 @@ class MainTestCase(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 main('__main__')
             cpf.assert_called_once_with(
-                folder_id='FOLDER_ID',
-                parent_id='PARENT_ID'
+                folder_id=123,
+                parent_id=456
             )
