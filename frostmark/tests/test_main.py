@@ -78,3 +78,27 @@ class MainTestCase(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 main('__main__')
             export_to.assert_called_once_with(path='PATH')
+
+    def test_main_console_changeparentfolder(self):
+        '''
+        Test exporting from console mode.
+        '''
+
+        args = [
+            __file__, 'console', '--change-parent-folder',
+            'FOLDER_ID', 'PARENT_ID'
+        ]
+        cpf = MagicMock()
+        cpf_patch = patch(
+            target='frostmark.editor.Editor.change_parent_folder',
+            new=cpf
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), cpf_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            cpf.assert_called_once_with(
+                folder_id='FOLDER_ID',
+                parent_id='PARENT_ID'
+            )

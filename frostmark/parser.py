@@ -6,6 +6,7 @@ from argparse import ArgumentParser, Action
 
 from frostmark import VERSION, __name__ as name
 from frostmark.common import fetch_bookmark_tree, print_bookmark_tree
+from frostmark.editor import Editor
 from frostmark.importer import Importer
 from frostmark.exporter import Exporter
 from frostmark.profiles import print_profiles
@@ -134,6 +135,22 @@ PARSER.console_parser.add_argument(
         *args, **kwargs,
         func=lambda *args, **kwargs: Exporter().export_to(
             path=kwargs['arg_values'][0]
+        )
+    )
+)
+
+PARSER.console_parser.add_argument(
+    '--change-parent-folder',
+    help='change parent for a folder',
+    required=False, nargs=2,
+    metavar=('FOLDER_ID', 'PARENT_ID'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Editor.change_parent_folder(
+            folder_id=int(kwargs['arg_values'][0]),
+            parent_id=int(kwargs['arg_values'][1])
         )
     )
 )
