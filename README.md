@@ -80,7 +80,7 @@ Sometimes you just want to move the bookmarks between the browsers. For that
 you can import the bookmarks from a browser profile into Frostmark and then
 simply export it into a format another browser understands:
 
-    frostmark console -e PATH
+    frostmark console -x PATH
     frostmark console --export-bookmarks PATH
 
 ## Development

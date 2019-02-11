@@ -66,7 +66,7 @@ class MainTestCase(unittest.TestCase):
         Test exporting from console mode.
         '''
 
-        args = [__file__, 'console', '-e', 'PATH']
+        args = [__file__, 'console', '-x', 'PATH']
         export_to = MagicMock()
         export_patch = patch(
             target='frostmark.exporter.Exporter.export_to',
@@ -77,4 +77,4 @@ class MainTestCase(unittest.TestCase):
             from frostmark.__main__ import main
             with self.assertRaises(SystemExit):
                 main('__main__')
-            export_to.assert_called_once_with('PATH')
+            export_to.assert_called_once_with(path='PATH')

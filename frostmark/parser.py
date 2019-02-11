@@ -124,7 +124,7 @@ PARSER.console_parser.add_argument(
 )
 
 PARSER.console_parser.add_argument(
-    '-e', '--export-bookmarks',
+    '-x', '--export-bookmarks',
     help='export bookmarks to an HTML format',
     required=False, nargs=1,
     metavar=('PATH', ),
@@ -133,7 +133,7 @@ PARSER.console_parser.add_argument(
     action=lambda *args, **kwargs: ExecuteAction(
         *args, **kwargs,
         func=lambda *args, **kwargs: Exporter().export_to(
-            kwargs['arg_values'][0]
+            path=kwargs['arg_values'][0]
         )
     )
 )
