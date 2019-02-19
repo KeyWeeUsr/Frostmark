@@ -57,7 +57,7 @@ class Editor:
 
         session = get_session()
         try:
-            child = session.query(Folder).filter(
+            child = session.query(Bookmark).filter(
                 Bookmark.id == bookmark_id
             ).first()
 
@@ -69,7 +69,7 @@ class Editor:
                     f'Child: {child} or parent: {parent} does not exist'
                 )
 
-            child.parent_folder_id = parent.id
+            child.folder_id = parent.id
             session.commit()
 
         finally:
