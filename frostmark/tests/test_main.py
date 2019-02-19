@@ -81,7 +81,7 @@ class MainTestCase(unittest.TestCase):
 
     def test_main_console_changeparentfolder(self):
         '''
-        Test exporting from console mode.
+        Test changing parent for folder from console.
         '''
 
         args = [

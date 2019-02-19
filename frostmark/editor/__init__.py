@@ -25,18 +25,24 @@ class Editor:
             raise Exception('Folder can not be its own parent')
 
         session = get_session()
-        child = session.query(Folder).filter(
-            Folder.id == folder_id
-        ).first()
+        try:
+            child = session.query(Folder).filter(
+                Folder.id == folder_id
+            ).first()
 
-        parent = session.query(Folder).filter(
-            Folder.id == parent_id
-        ).first()
-        if not child or not parent:
+            parent = session.query(Folder).filter(
+                Folder.id == parent_id
+            ).first()
+            if not child or not parent:
+                raise Exception(
+                    f'Child: {child} or parent: {parent} does not exist'
+                )
+
+            child.parent_folder_id = parent.id
+            session.commit()
+
+        finally:
             session.close()
-            raise Exception(
-                f'Child: {child} or parent: {parent} does not exist'
-            )
 
         child.parent_folder_id = parent.id
         session.commit()
