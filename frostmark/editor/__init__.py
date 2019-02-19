@@ -4,7 +4,7 @@ Edit imported bookmarks.
 from ensure import ensure_annotations
 
 from frostmark.db import get_session
-from frostmark.models import Folder
+from frostmark.models import Folder, Bookmark
 
 
 class Editor:
@@ -44,6 +44,33 @@ class Editor:
         finally:
             session.close()
 
-        child.parent_folder_id = parent.id
-        session.commit()
-        session.close()
+    @staticmethod
+    @ensure_annotations
+    def change_parent_bookmark(bookmark_id: int, parent_id: int):
+        '''
+        Change bookmark's parent if both the parent and the child exist
+        and if the new parent isn't the child itself.
+        '''
+
+        if bookmark_id == parent_id:
+            raise Exception('Bookmark can not be its own parent')
+
+        session = get_session()
+        try:
+            child = session.query(Folder).filter(
+                Bookmark.id == bookmark_id
+            ).first()
+
+            parent = session.query(Folder).filter(
+                Folder.id == parent_id
+            ).first()
+            if not child or not parent:
+                raise Exception(
+                    f'Child: {child} or parent: {parent} does not exist'
+                )
+
+            child.parent_folder_id = parent.id
+            session.commit()
+
+        finally:
+            session.close()

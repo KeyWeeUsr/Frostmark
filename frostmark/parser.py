@@ -154,3 +154,19 @@ PARSER.console_parser.add_argument(
         )
     )
 )
+
+PARSER.console_parser.add_argument(
+    '--change-parent-bookmark',
+    help='change parent for a bookmark',
+    required=False, nargs=2,
+    metavar=('BOOKMARK_ID', 'PARENT_ID'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Editor.change_parent_bookmark(
+            bookmark_id=int(kwargs['arg_values'][0]),
+            parent_id=int(kwargs['arg_values'][1])
+        )
+    )
+)

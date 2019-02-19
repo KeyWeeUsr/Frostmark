@@ -102,3 +102,27 @@ class MainTestCase(unittest.TestCase):
                 folder_id=123,
                 parent_id=456
             )
+
+    def test_main_console_changeparentbookmark(self):
+        '''
+        Test changing parent for bookmark from console.
+        '''
+
+        args = [
+            __file__, 'console', '--change-parent-bookmark',
+            '123', '456'
+        ]
+        cpb = MagicMock()
+        cpb_patch = patch(
+            target='frostmark.editor.Editor.change_parent_bookmark',
+            new=cpb
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), cpb_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            cpb.assert_called_once_with(
+                bookmark_id=123,
+                parent_id=456
+            )
