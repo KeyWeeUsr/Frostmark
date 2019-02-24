@@ -1,6 +1,7 @@
 '''
 Module for GUI interface.
 '''
+from frostmark.core.gui.react import main as react_main
 
 
 class GUI:
@@ -17,4 +18,4 @@ class GUI:
         '''
         Dummy method for GUI interface.
         '''
-        raise NotImplementedError()
+        react_main()

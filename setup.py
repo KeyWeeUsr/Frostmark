@@ -55,6 +55,7 @@ setup(
     extras_require={
         'dev': ['pycodestyle', 'pylint', 'coverage'],
         'ci': ['coveralls'],
-        'doc': ['sphinx>=1.8.1']
+        'doc': ['sphinx>=1.8.1'],
+        'gui_react': ['flask']
     }
 )

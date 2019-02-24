@@ -51,15 +51,18 @@ class MainTestCase(unittest.TestCase):
             from frostmark.__main__ import main
             main('__main__')
 
-    def test_main_gui(self):
+    @staticmethod
+    def test_main_gui():
         '''
         Test triggering gui mode.
         '''
 
-        with patch('sys.stdout'), patch('sys.argv', [__file__, 'gui']):
-            with self.assertRaises(NotImplementedError):
-                from frostmark.__main__ import main
-                main('__main__')
+        stdout = patch('sys.stdout')
+        argv = patch('sys.argv', [__file__, 'gui'])
+        with stdout, argv, patch('frostmark.core.gui.react_main') as react:
+            from frostmark.__main__ import main
+            main('__main__')
+            react.assert_called_once_with()
 
     def test_main_console_export(self):
         '''
