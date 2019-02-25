@@ -29,6 +29,9 @@ def index():
 
 @APP.route('/list_bookmarks')
 def list_bookmarks():
+    """
+    Return a flat list of a bookmark tree.
+    """
     response = Response(
         response=json_bookmark_tree(fetch_bookmark_tree()),
         headers={
