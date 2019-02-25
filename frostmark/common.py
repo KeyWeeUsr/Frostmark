@@ -2,6 +2,7 @@
 Module for common functions.
 '''
 
+import json
 from anytree import Node, RenderTree, AsciiStyle
 from ensure import ensure_annotations
 from frostmark.db import get_session
@@ -135,6 +136,30 @@ def print_bookmark_tree(root: Node):
             args[0] = '[B] ' + args[0]
 
         print(f'{pre}{" ".join(args)}')
+
+
+@ensure_annotations
+def json_bookmark_tree(root: Node):
+    '''
+    Assemble a nested bookmark tree from a root tree `Node`, folders first
+    bookmark with urls second and put it to JSON.
+    '''
+
+    exclude = ['NodeMixin', 'sa_instance_state', 'icon']
+    output = []
+    for item in traverse(root):
+        obj = {}
+        for key, value in vars(item).items():
+            if any([exc in key for exc in exclude]):
+                continue
+
+            elif key == 'node_type':
+                obj[key] = str(value.__name__)
+            else:
+                obj[key] = value
+        output.append(obj)
+
+    return json.dumps(output)
 
 
 @ensure_annotations
