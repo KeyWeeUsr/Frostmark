@@ -145,7 +145,7 @@ def json_bookmark_tree(root: Node):
     bookmark with urls second and put it to JSON.
     '''
 
-    exclude = ['NodeMixin', 'sa_instance_state', 'icon']
+    exclude = ['NodeMixin', 'sa_instance_state']
     output = []
     for item in traverse(root):
         obj = {}
@@ -155,6 +155,11 @@ def json_bookmark_tree(root: Node):
 
             elif key == 'node_type':
                 obj[key] = str(value.__name__)
+
+            elif key == 'icon':
+                # expects value for img.src i.e. url or
+                # data:image/png;base64,encodedstring
+                obj[key] = value.decode('utf-8')
             else:
                 obj[key] = value
         output.append(obj)
