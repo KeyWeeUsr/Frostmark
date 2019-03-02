@@ -2,6 +2,7 @@
 Module for running a web application wrapping the CLI.
 """
 
+from os import environ
 from os.path import join, dirname, abspath
 from flask import Flask, Response
 
@@ -45,10 +46,7 @@ def list_bookmarks():
 
 
 def main():
-    """
-    Main function for running the backend server.
-    """
-    APP.run()
+    APP.run(host=environ.get('FROSTMARK_HOST', '127.0.0.1'))
 
 
 if __name__ == '__main__':
