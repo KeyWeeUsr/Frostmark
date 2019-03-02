@@ -46,6 +46,9 @@ def list_bookmarks():
 
 
 def main():
+    """
+    Run Flask app on a specific host.
+    """
     APP.run(host=environ.get('FROSTMARK_HOST', '127.0.0.1'))
 
 

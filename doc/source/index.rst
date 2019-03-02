@@ -6,6 +6,7 @@ Welcome to Frostmark's documentation!
    :caption: Contents:
 
    getting_started
+   config
    frostmark_main
    common
    db_base
