@@ -57,15 +57,23 @@ setup(
     url=REPO,
     download_url=REPO + '/tarball/' + VERSION,
     classifiers=[
-        'Development Status :: 1 - Planning',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: '
+        'GNU Affero General Public License v3 or later (AGPLv3+)',
+
+        'Environment :: Console',
+        'Environment :: Web Environment',
 
         'Intended Audience :: End Users/Desktop',
         'Natural Language :: English',
 
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: JavaScript',
+
+        'Topic :: Database :: Front-Ends',
+        'Topic :: Internet'
     ],
 
     entry_points={
