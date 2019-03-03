@@ -47,6 +47,11 @@ def run_clean():
     return True
 
 
+def run_build():
+    """Build React GUI."""
+    return run_proc(['sh', join(GUI_REACT, 'build_frontend.sh')])
+
+
 def run_install():
     """Install deps via installing the packages."""
     return run_proc([
