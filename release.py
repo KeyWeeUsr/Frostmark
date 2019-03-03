@@ -74,6 +74,7 @@ def run_upload():
 
 CASES = [
     run_clean,
+    run_build,
     run_install,
     run_check,
     run_dist,
