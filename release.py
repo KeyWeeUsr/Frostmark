@@ -18,12 +18,12 @@ RELEASE_DIR = join(ROOT, 'release')
 PYPI_REPO = environ.get('PYPI_REPO', 'https://upload.pypi.org/legacy/')
 
 
-def run_proc(args):
+def run_proc(args, options=None):
     """
     Run a command outside of the interpreter,
     but block until it's resolved.
     """
-    proc = Popen(args)
+    proc = Popen(args, **({} if not options else options))
     proc.communicate()
     return proc.returncode == 0
 
@@ -49,7 +49,10 @@ def run_clean():
 
 def run_build():
     """Build React GUI."""
-    return run_proc(['sh', join(GUI_REACT, 'build_frontend.sh')])
+    return run_proc(
+        ['sh', join(GUI_REACT, 'build_frontend.sh')],
+        options={'cwd': GUI_REACT}
+    )
 
 
 def run_install():
