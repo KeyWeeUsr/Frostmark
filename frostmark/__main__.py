@@ -32,6 +32,7 @@ def main(name: str = '__main__'):
         from frostmark.core.gui import GUI as Client
     Client(**vars(main_parser)).run()
 
+
 @ensure_annotations
 def main_console(name: str = '__main__'):
     '''
@@ -45,6 +46,7 @@ def main_console(name: str = '__main__'):
 
     from frostmark.core.console import Console
     Console(**vars(main_parser)).run()
+
 
 @ensure_annotations
 def main_gui(name: str = '__main__'):

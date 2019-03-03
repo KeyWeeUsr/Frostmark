@@ -88,23 +88,23 @@ class ImportTestCase(unittest.TestCase):
             'place:sort=8&maxResults=10'
         ]
         expected_calls = [
-            f'[F] ROOT',
-            f'+-- [F] <no title>',
-            f'    |-- [F] Bookmarks Menu',
-            f'    |   |-- [F] Mozilla Firefox',
-            f'    |   |   |-- [B] Help and Tutorials {urls[0]}',
-            f'    |   |   |-- [B] Customize Firefox {urls[1]}',
-            f'    |   |   |-- [B] Get Involved {urls[2]}',
-            f'    |   |   +-- [B] About Us {urls[3]}',
-            f'    |   |-- [B] PortableApps.com {urls[4]}',
-            f'    |   |-- [B] Recently Bookmarked {urls[5]}',
-            f'    |   +-- [B] Recent Tags {urls[6]}',
-            f'    |-- [F] Bookmarks Toolbar',
-            f'    |   |-- [F] Latest Headlines',
-            f'    |   |-- [B] Getting Started {urls[7]}',
-            f'    |   +-- [B] Most Visited {urls[8]}',
-            f'    |-- [F] Tags',
-            f'    +-- [F] Unsorted Bookmarks'
+            f'[F] 0\tROOT',
+            f'+-- [F] 1\t<no title>',
+            f'    |-- [F] 2\tBookmarks Menu',
+            f'    |   |-- [F] 6\tMozilla Firefox',
+            f'    |   |   |-- [B] 2\tHelp and Tutorials {urls[0]}',
+            f'    |   |   |-- [B] 3\tCustomize Firefox {urls[1]}',
+            f'    |   |   |-- [B] 4\tGet Involved {urls[2]}',
+            f'    |   |   +-- [B] 5\tAbout Us {urls[3]}',
+            f'    |   |-- [B] 6\tPortableApps.com {urls[4]}',
+            f'    |   |-- [B] 8\tRecently Bookmarked {urls[5]}',
+            f'    |   +-- [B] 9\tRecent Tags {urls[6]}',
+            f'    |-- [F] 3\tBookmarks Toolbar',
+            f'    |   |-- [F] 7\tLatest Headlines',
+            f'    |   |-- [B] 1\tGetting Started {urls[7]}',
+            f'    |   +-- [B] 7\tMost Visited {urls[8]}',
+            f'    |-- [F] 4\tTags',
+            f'    +-- [F] 5\tUnsorted Bookmarks'
         ]
 
         folder = dirname(abspath(user_data.__file__))
@@ -220,36 +220,36 @@ class ImportTestCase(unittest.TestCase):
             'http://www.azet.sk/'
         ]
         expected_calls = [
-            f'[F] ROOT',
-            f'|-- [F] <no title>',
-            f'|-- [F] Bookmarks bar',
-            f'|   +-- [B] PortableApps.com {urls[0]}',
-            f'|-- [F] Shared Bookmarks',
-            f'|-- [F] Speed Dial',
-            f'|   +-- [F] V7',
-            f'|       |-- [F] ',
-            f'|       |   |-- [B] Let\'s connect {urls[1]}',
-            f'|       |   |-- [B] Booking.com: Cheap Hotels {urls[2]}',
-            f'|       |   +-- [B] Wikipedia {urls[3]}',
-            f'|       |-- [F] ',
-            f'|       |   |-- [B] Spojte sa s nami {urls[4]}',
-            f'|       |   +-- [B] Zoznam {urls[5]}',
-            f'|       |-- [B] Facebook {urls[6]}',
-            f'|       |-- [B] Amazon.com {urls[7]}',
-            f'|       |-- [B] eBay {urls[8]}',
-            f'|       |-- [B] Yahoo! {urls[9]}',
-            f'|       |-- [B] Twitter {urls[10]}',
-            f'|       |-- [B] YouTube {urls[11]}',
-            f'|       |-- [B] Mall {urls[12]}',
-            f'|       |-- [B] Heureka {urls[13]}',
-            f'|       |-- [B] Topky {urls[14]}',
-            f'|       |-- [B] Amazon.de {urls[15]}',
-            f'|       +-- [B] Azet {urls[16]}',
-            f'|-- [F] Trash',
-            f'|-- [F] Unsorted Bookmarks',
-            f'|-- [F] My Folders',
-            f'|-- [F] Other bookmarks',
-            f'+-- [F] Mobile bookmarks'
+            f'[F] 0\tROOT',
+            f'|-- [F] 1\t<no title>',
+            f'|-- [F] 2\tBookmarks bar',
+            f'|   +-- [B] 1\tPortableApps.com {urls[0]}',
+            f'|-- [F] 3\tShared Bookmarks',
+            f'|-- [F] 4\tSpeed Dial',
+            f'|   +-- [F] 10\tV7',
+            f'|       |-- [F] 11\t',
+            f'|       |   |-- [B] 8\tLet\'s connect {urls[1]}',
+            f'|       |   |-- [B] 9\tBooking.com: Cheap Hotels {urls[2]}',
+            f'|       |   +-- [B] 10\tWikipedia {urls[3]}',
+            f'|       |-- [F] 12\t',
+            f'|       |   |-- [B] 16\tSpojte sa s nami {urls[4]}',
+            f'|       |   +-- [B] 17\tZoznam {urls[5]}',
+            f'|       |-- [B] 2\tFacebook {urls[6]}',
+            f'|       |-- [B] 3\tAmazon.com {urls[7]}',
+            f'|       |-- [B] 4\teBay {urls[8]}',
+            f'|       |-- [B] 5\tYahoo! {urls[9]}',
+            f'|       |-- [B] 6\tTwitter {urls[10]}',
+            f'|       |-- [B] 7\tYouTube {urls[11]}',
+            f'|       |-- [B] 11\tMall {urls[12]}',
+            f'|       |-- [B] 12\tHeureka {urls[13]}',
+            f'|       |-- [B] 13\tTopky {urls[14]}',
+            f'|       |-- [B] 14\tAmazon.de {urls[15]}',
+            f'|       +-- [B] 15\tAzet {urls[16]}',
+            f'|-- [F] 5\tTrash',
+            f'|-- [F] 6\tUnsorted Bookmarks',
+            f'|-- [F] 7\tMy Folders',
+            f'|-- [F] 8\tOther bookmarks',
+            f'+-- [F] 9\tMobile bookmarks'
         ]
 
         folder = dirname(abspath(user_data.__file__))
@@ -334,18 +334,18 @@ class ImportTestCase(unittest.TestCase):
             'https://www.google.com/maps'
         ]
         expected_calls = [
-            f'[F] ROOT',
-            f'|-- [F] <no title>',
-            f'|-- [F] Panel so záložkami',
-            f'|   |-- [F] folder',
-            f'|   |   |-- [F] nestedfolder',
-            f'|   |   |   +-- [B] YouTube {urls[0]}',
-            f'|   |   |-- [F] emptyfolder',
-            f'|   |   +-- [B] Google {urls[1]}',
-            f'|   +-- [B] PortableApps.com {urls[2]}',
-            f'|-- [F] Ostatné',
-            f'|   +-- [B] Mapy Google {urls[3]}',
-            f'+-- [F] Záložky v mobile'
+            f'[F] 0\tROOT',
+            f'|-- [F] 1\t<no title>',
+            f'|-- [F] 2\tPanel so záložkami',
+            f'|   |-- [F] 5\tfolder',
+            f'|   |   |-- [F] 6\tnestedfolder',
+            f'|   |   |   +-- [B] 3\tYouTube {urls[0]}',
+            f'|   |   |-- [F] 7\temptyfolder',
+            f'|   |   +-- [B] 2\tGoogle {urls[1]}',
+            f'|   +-- [B] 1\tPortableApps.com {urls[2]}',
+            f'|-- [F] 3\tOstatné',
+            f'|   +-- [B] 4\tMapy Google {urls[3]}',
+            f'+-- [F] 4\tZáložky v mobile'
         ]
 
         folder = dirname(abspath(user_data.__file__))
