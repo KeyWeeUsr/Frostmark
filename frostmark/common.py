@@ -128,12 +128,12 @@ def print_bookmark_tree(root: Node):
         if node.node_type == Folder:
             required = ('folder_name', )
             args = [getattr(node, key) for key in required]
-            args[0] = '[F] ' + args[0]
+            args[0] = f'[F] {node.id}\t{args[0]}'
 
         elif node.node_type == Bookmark:
             required = ('title', 'url')
             args = [getattr(node, key) for key in required]
-            args[0] = '[B] ' + args[0]
+            args[0] = f'[B] {node.id}\t{args[0]}'
 
         print(f'{pre}{" ".join(args)}')
 
