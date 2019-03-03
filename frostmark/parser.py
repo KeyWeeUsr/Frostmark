@@ -140,7 +140,7 @@ PARSER.console_parser.add_argument(
 )
 
 PARSER.console_parser.add_argument(
-    '--change-parent-folder',
+    '-cpf', '--change-parent-folder',
     help='change parent for a folder',
     required=False, nargs=2,
     metavar=('FOLDER_ID', 'PARENT_ID'),
@@ -156,7 +156,7 @@ PARSER.console_parser.add_argument(
 )
 
 PARSER.console_parser.add_argument(
-    '--change-parent-bookmark',
+    '-cpb', '--change-parent-bookmark',
     help='change parent for a bookmark',
     required=False, nargs=2,
     metavar=('BOOKMARK_ID', 'PARENT_ID'),
