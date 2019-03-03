@@ -89,7 +89,12 @@ setup(
         'ci': ['coveralls'],
         'doc': ['sphinx>=1.8.1'],
         'gui_react': ['flask'],
-        'release': ['setuptools', 'wheel', 'twine', 'sphinx>=1.8.1']
+        'release': [
+            'setuptools', 'wheel',
+            'pycodestyle', 'pylint',
+            'coverage', 'coveralls', 'sphinx>=1.8.1',
+            'flask', 'twine'
+        ]
     },
     include_package_data=True,
     data_files=[(NAME, DATA)]
