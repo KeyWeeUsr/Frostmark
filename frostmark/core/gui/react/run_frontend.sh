@@ -1,10 +1,17 @@
 #!/bin/sh
 set -xe
 
-docker build --file Dockerfile.builder \
+docker build \
     --build-arg REACT_PROXY=${REACT_PROXY:-http://127.0.0.1} \
     --tag frostmark_builder .
 
+docker kill frostmark_runner ||true
+docker rm -vf frostmark_runner ||true
+
+docker run -dit \
+    --name frostmark_runner \
+    frostmark_builder tail -f /dev/null
+docker cp frostmark_runner:/app/package.json package.json
 docker kill frostmark_runner ||true
 docker rm -vf frostmark_runner ||true
 
