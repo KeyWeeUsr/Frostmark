@@ -3,13 +3,16 @@
 Basic setup.py
 """
 
-from os.path import abspath, dirname, join
+from glob import glob
+from os.path import abspath, dirname, join, relpath
 from setuptools import setup, find_packages
 from frostmark import VERSION
 
 
 ROOT = abspath(dirname(__file__))
 REPO = 'https://github.com/KeyWeeUsr/Frostmark'
+NAME = 'frostmark'
+PKG = join(ROOT, NAME)
 
 
 with open(join(ROOT, "README.md")) as fd:
@@ -20,8 +23,27 @@ with open(join(ROOT, 'LICENSE.txt')) as fd:
     GPL = fd.read()
 
 
+DATA = [relpath(path, ROOT) for path in [
+    'LICENSE.txt',
+    'README.md',
+] + [
+    *glob(join(PKG, 'tests', '*.html')),
+    *glob(join(PKG, 'tests', '*.json')),
+    *glob(join(PKG, 'tests', '*.sqlite')),
+    *glob(join(
+        PKG, 'core', 'gui', 'react', 'build', '*.*'
+    )),
+    *glob(join(
+        PKG, 'core', 'gui', 'react', 'build', 'static', 'css', '*.*'
+    )),
+    *glob(join(
+        PKG, 'core', 'gui', 'react', 'build', 'static', 'js', '*.*'
+    ))
+]]
+
+
 setup(
-    name='frostmark',
+    name=NAME,
     version=VERSION,
     license=GPL,
 
@@ -48,9 +70,9 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'frostmark = frostmark.__main__:main',
-            'fmcli = frostmark.__main__:main_console',
-            'fmgui = frostmark.__main__:main_gui'
+            f'{NAME} = {NAME}.__main__:main',
+            f'fmcli = {NAME}.__main__:main_console',
+            f'fmgui = {NAME}.__main__:main_gui'
         ]
     },
     install_requires=['ensure', 'sqlalchemy', 'anytree'],
@@ -58,6 +80,9 @@ setup(
         'dev': ['pycodestyle', 'pylint', 'coverage'],
         'ci': ['coveralls'],
         'doc': ['sphinx>=1.8.1'],
-        'gui_react': ['flask']
-    }
+        'gui_react': ['flask'],
+        'release': ['setuptools', 'wheel', 'twine', 'sphinx>=1.8.1']
+    },
+    include_package_data=True,
+    data_files=[(NAME, DATA)]
 )
