@@ -48,7 +48,9 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'frostmark = frostmark.__main__:main'
+            'frostmark = frostmark.__main__:main',
+            'fmcli = frostmark.__main__:main_console',
+            'fmgui = frostmark.__main__:main_gui'
         ]
     },
     install_requires=['ensure', 'sqlalchemy', 'anytree'],

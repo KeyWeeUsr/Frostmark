@@ -32,5 +32,33 @@ def main(name: str = '__main__'):
         from frostmark.core.gui import GUI as Client
     Client(**vars(main_parser)).run()
 
+@ensure_annotations
+def main_console(name: str = '__main__'):
+    '''
+    Main function for console entrypoint.
+    '''
+
+    if name != '__main__':
+        return
+
+    main_parser = PARSER.console_parser.parse_args()
+
+    from frostmark.core.console import Console
+    Console(**vars(main_parser)).run()
+
+@ensure_annotations
+def main_gui(name: str = '__main__'):
+    '''
+    Main function for gui entrypoint.
+    '''
+
+    if name != '__main__':
+        return
+
+    main_parser = PARSER.gui_parser.parse_args()
+
+    from frostmark.core.gui import GUI
+    GUI(**vars(main_parser)).run()
+
 
 main(__name__)
