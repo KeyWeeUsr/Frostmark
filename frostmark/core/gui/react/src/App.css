@@ -23,9 +23,9 @@ a {
 
 /* TreeView child horizontal side line */
 .tree-view_children > div.info:before {
-    content: "--";
+    content: "\23AF\23AF";
     font-family: monospace, monospace;
-    font-size: 17px;
+    font-size: 15px;
     color: #66CCFF55;
 }
 .tree-view_children > div.info {
