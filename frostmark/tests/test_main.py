@@ -151,7 +151,7 @@ class MainTestCase(unittest.TestCase):
                 main('__main__')
             rename.assert_called_once_with(
                 folder_id=123,
-                name=456
+                name='456'
             )
 
     def test_main_console_renamebookmark(self):
@@ -175,5 +175,5 @@ class MainTestCase(unittest.TestCase):
                 main('__main__')
             rename.assert_called_once_with(
                 bookmark_id=123,
-                name=456
+                name='456'
             )
