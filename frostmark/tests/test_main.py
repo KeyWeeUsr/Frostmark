@@ -129,3 +129,51 @@ class MainTestCase(unittest.TestCase):
                 bookmark_id=123,
                 parent_id=456
             )
+
+    def test_main_console_renamefolder(self):
+        '''
+        Test changing folder_name for folder from console.
+        '''
+
+        args = [
+            __file__, 'console', '--rename-folder',
+            '123', '456'
+        ]
+        rename = MagicMock()
+        rename_patch = patch(
+            target='frostmark.editor.Editor.rename_folder',
+            new=rename
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), rename_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            rename.assert_called_once_with(
+                folder_id=123,
+                name=456
+            )
+
+    def test_main_console_renamebookmark(self):
+        '''
+        Test changing title for bookmark from console.
+        '''
+
+        args = [
+            __file__, 'console', '--rename-bookmark',
+            '123', '456'
+        ]
+        rename = MagicMock()
+        rename_patch = patch(
+            target='frostmark.editor.Editor.rename_bookmark',
+            new=rename
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), rename_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            rename.assert_called_once_with(
+                bookmark_id=123,
+                name=456
+            )

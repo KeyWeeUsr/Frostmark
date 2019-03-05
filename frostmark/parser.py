@@ -170,3 +170,35 @@ PARSER.console_parser.add_argument(
         )
     )
 )
+
+PARSER.console_parser.add_argument(
+    '-rf', '--rename-folder',
+    help='rename folder',
+    required=False, nargs=2,
+    metavar=('FOLDER_ID', 'NAME'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Editor.rename_folder(
+            folder_id=int(kwargs['arg_values'][0]),
+            name=kwargs['arg_values'][1]
+        )
+    )
+)
+
+PARSER.console_parser.add_argument(
+    '-rb', '--rename-bookmark',
+    help='rename bookmark',
+    required=False, nargs=2,
+    metavar=('BOOKMARK_ID', 'NAME'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Editor.rename_bookmark(
+            bookmark_id=int(kwargs['arg_values'][0]),
+            name=kwargs['arg_values'][1]
+        )
+    )
+)
