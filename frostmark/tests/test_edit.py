@@ -29,37 +29,40 @@ class EditTestCase(unittest.TestCase):
             {'id': 123, 'folder_name': 'new parent'}
         ]
         session = get_session()
-        for item in items:
-            session.add(Folder(**item))
-        session.commit()
+        try:
+            for item in items:
+                session.add(Folder(**item))
+            session.commit()
 
-        for item in items:
+            for item in items:
+                self.assertEqual(
+                    session.query(Folder).filter(
+                        Folder.folder_name == item['folder_name']
+                    ).first().id,
+                    item['id']
+                )
+
             self.assertEqual(
                 session.query(Folder).filter(
-                    Folder.folder_name == item['folder_name']
-                ).first().id,
-                item['id']
+                    Folder.id == items[1]['id']
+                ).first().parent_folder_id,
+                items[0]['id']
             )
 
-        self.assertEqual(
-            session.query(Folder).filter(
-                Folder.id == items[1]['id']
-            ).first().parent_folder_id,
-            items[0]['id']
-        )
+            Editor.change_parent_folder(
+                folder_id=items[1]['id'],
+                parent_id=items[2]['id']
+            )
 
-        Editor.change_parent_folder(
-            folder_id=items[1]['id'],
-            parent_id=items[2]['id']
-        )
+            self.assertEqual(
+                session.query(Folder).filter(
+                    Folder.id == items[1]['id']
+                ).first().parent_folder_id,
+                items[2]['id']
+            )
 
-        self.assertEqual(
-            session.query(Folder).filter(
-                Folder.id == items[1]['id']
-            ).first().parent_folder_id,
-            items[2]['id']
-        )
-        session.close()
+        finally:
+            session.close()
 
         self.assertIn(db_base.DB_NAME, listdir(data))
         remove(join(data, db_base.DB_NAME))
@@ -78,9 +81,11 @@ class EditTestCase(unittest.TestCase):
 
         item = {'id': 321, 'folder_name': 'child'}
         session = get_session()
-        session.add(Folder(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Folder(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_folder(
@@ -105,9 +110,11 @@ class EditTestCase(unittest.TestCase):
 
         item = {'id': 321, 'folder_name': 'child'}
         session = get_session()
-        session.add(Folder(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Folder(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_folder(
@@ -132,9 +139,11 @@ class EditTestCase(unittest.TestCase):
 
         item = {'id': 321, 'folder_name': 'new parent'}
         session = get_session()
-        session.add(Folder(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Folder(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_folder(
@@ -166,52 +175,54 @@ class EditTestCase(unittest.TestCase):
             'id': 123, 'folder_name': 'new parent', 'type': Folder
         }]
         session = get_session()
-        for item in items:
-            item_type = item.pop('type')
-            if item_type == Folder:
-                session.add(Folder(**item))
-            elif item_type == Bookmark:
-                session.add(Bookmark(**item))
-            item['type'] = item_type
-        session.commit()
+        try:
+            for item in items:
+                item_type = item.pop('type')
+                if item_type == Folder:
+                    session.add(Folder(**item))
+                elif item_type == Bookmark:
+                    session.add(Bookmark(**item))
+                item['type'] = item_type
+            session.commit()
 
-        for item in items:
-            item_type = item.pop('type')
-            if item_type == Folder:
-                self.assertEqual(
-                    session.query(Folder).filter(
-                        Folder.folder_name == item['folder_name']
-                    ).first().id,
-                    item['id']
-                )
-            elif item_type == Bookmark:
-                self.assertEqual(
-                    session.query(Bookmark).filter(
-                        Bookmark.title == item['title']
-                    ).first().id,
-                    item['id']
-                )
-            item['type'] = item_type
+            for item in items:
+                item_type = item.pop('type')
+                if item_type == Folder:
+                    self.assertEqual(
+                        session.query(Folder).filter(
+                            Folder.folder_name == item['folder_name']
+                        ).first().id,
+                        item['id']
+                    )
+                elif item_type == Bookmark:
+                    self.assertEqual(
+                        session.query(Bookmark).filter(
+                            Bookmark.title == item['title']
+                        ).first().id,
+                        item['id']
+                    )
+                item['type'] = item_type
 
-        self.assertEqual(
-            session.query(Bookmark).filter(
-                Bookmark.id == items[1]['id']
-            ).first().folder_id,
-            items[0]['id']
-        )
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == items[1]['id']
+                ).first().folder_id,
+                items[0]['id']
+            )
 
-        Editor.change_parent_bookmark(
-            bookmark_id=items[1]['id'],
-            parent_id=items[2]['id']
-        )
+            Editor.change_parent_bookmark(
+                bookmark_id=items[1]['id'],
+                parent_id=items[2]['id']
+            )
 
-        self.assertEqual(
-            session.query(Bookmark).filter(
-                Bookmark.id == items[1]['id']
-            ).first().folder_id,
-            items[2]['id']
-        )
-        session.close()
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == items[1]['id']
+                ).first().folder_id,
+                items[2]['id']
+            )
+        finally:
+            session.close()
 
         self.assertIn(db_base.DB_NAME, listdir(data))
         remove(join(data, db_base.DB_NAME))
@@ -233,9 +244,11 @@ class EditTestCase(unittest.TestCase):
             'url': '<url>', 'icon': b'<bytes>'
         }
         session = get_session()
-        session.add(Bookmark(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Bookmark(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_bookmark(
@@ -263,9 +276,11 @@ class EditTestCase(unittest.TestCase):
             'url': '<url>', 'icon': b'<bytes>'
         }
         session = get_session()
-        session.add(Bookmark(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Bookmark(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_bookmark(
@@ -293,9 +308,11 @@ class EditTestCase(unittest.TestCase):
             'url': '<url>', 'icon': b'<bytes>'
         }
         session = get_session()
-        session.add(Bookmark(**item))
-        session.commit()
-        session.close()
+        try:
+            session.add(Bookmark(**item))
+            session.commit()
+        finally:
+            session.close()
 
         with self.assertRaises(Exception):
             Editor.change_parent_bookmark(
