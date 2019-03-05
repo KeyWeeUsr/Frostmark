@@ -177,3 +177,27 @@ class MainTestCase(unittest.TestCase):
                 bookmark_id=123,
                 name='456'
             )
+
+    def test_main_console_changebookmarkurl(self):
+        '''
+        Test changing url for bookmark from console.
+        '''
+
+        args = [
+            __file__, 'console', '--change-bookmark-url',
+            '123', 'http://456'
+        ]
+        cbu = MagicMock()
+        cbu_patch = patch(
+            target='frostmark.editor.Editor.change_bookmark_url',
+            new=cbu
+        )
+        with patch('sys.stdout'), patch('sys.argv', args), cbu_patch:
+            # not implemented yet, GUI is None
+            from frostmark.__main__ import main
+            with self.assertRaises(SystemExit):
+                main('__main__')
+            cbu.assert_called_once_with(
+                bookmark_id=123,
+                url='http://456'
+            )

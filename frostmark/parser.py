@@ -202,3 +202,19 @@ PARSER.console_parser.add_argument(
         )
     )
 )
+
+PARSER.console_parser.add_argument(
+    '-cbu', '--change-bookmark-url',
+    help='change url for a bookmark',
+    required=False, nargs=2,
+    metavar=('BOOKMARK_ID', 'URL'),
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Editor.change_bookmark_url(
+            bookmark_id=int(kwargs['arg_values'][0]),
+            url=kwargs['arg_values'][1]
+        )
+    )
+)
