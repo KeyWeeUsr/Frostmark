@@ -74,3 +74,41 @@ class Editor:
 
         finally:
             session.close()
+
+    @staticmethod
+    @ensure_annotations
+    def rename_folder(folder_id: int, name: str):
+        '''
+        Change folder's name.
+        '''
+
+        session = get_session()
+        try:
+            child = session.query(Folder).filter(
+                Folder.id == folder_id
+            ).first()
+
+            child.folder_name = name
+            session.commit()
+
+        finally:
+            session.close()
+
+    @staticmethod
+    @ensure_annotations
+    def rename_bookmark(bookmark_id: int, name: str):
+        '''
+        Change bookmark's title.
+        '''
+
+        session = get_session()
+        try:
+            child = session.query(Bookmark).filter(
+                Bookmark.id == bookmark_id
+            ).first()
+
+            child.title = name
+            session.commit()
+
+        finally:
+            session.close()

@@ -322,3 +322,104 @@ class EditTestCase(unittest.TestCase):
 
         self.assertIn(db_base.DB_NAME, listdir(data))
         remove(join(data, db_base.DB_NAME))
+
+    def test_rename_folder(self):
+        '''
+        Test renaming a Folder item.
+        '''
+        from frostmark import db_base, user_data
+        from frostmark.db import get_session
+        from frostmark.models import Folder
+        from frostmark.editor import Editor
+
+        data = dirname(abspath(user_data.__file__))
+        self.assertNotIn(db_base.DB_NAME, listdir(data))
+
+        item = {'id': 321, 'folder_name': 'old parent'}
+        session = get_session()
+        try:
+            session.add(Folder(**item))
+            session.commit()
+
+            self.assertEqual(
+                session.query(Folder).filter(
+                    Folder.folder_name == item['folder_name']
+                ).first().id,
+                item['id']
+            )
+
+            self.assertEqual(
+                session.query(Folder).filter(
+                    Folder.id == item['id']
+                ).first().folder_name,
+                item['folder_name']
+            )
+
+            Editor.rename_folder(
+                folder_id=item['id'],
+                name=item['folder_name'][:3]
+            )
+
+            self.assertEqual(
+                session.query(Folder).filter(
+                    Folder.id == item['id']
+                ).first().folder_name,
+                item['folder_name'][:3]
+            )
+        finally:
+            session.close()
+
+        self.assertIn(db_base.DB_NAME, listdir(data))
+        remove(join(data, db_base.DB_NAME))
+
+    def test_rename_bookmark(self):
+        '''
+        Test renaming a Bookmark item.
+        '''
+        from frostmark import db_base, user_data
+        from frostmark.db import get_session
+        from frostmark.models import Bookmark
+        from frostmark.editor import Editor
+
+        data = dirname(abspath(user_data.__file__))
+        self.assertNotIn(db_base.DB_NAME, listdir(data))
+
+        item = {
+            'id': 321, 'title': 'child',
+            'url': '<url>', 'icon': b'<bytes>'
+        }
+        session = get_session()
+        try:
+            session.add(Bookmark(**item))
+            session.commit()
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.title == item['title']
+                ).first().id,
+                item['id']
+            )
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == item['id']
+                ).first().title,
+                item['title']
+            )
+
+            Editor.rename_bookmark(
+                bookmark_id=item['id'],
+                name=item['title'][:3]
+            )
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == item['id']
+                ).first().title,
+                item['title'][:3]
+            )
+        finally:
+            session.close()
+
+        self.assertIn(db_base.DB_NAME, listdir(data))
+        remove(join(data, db_base.DB_NAME))
