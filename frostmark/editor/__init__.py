@@ -112,3 +112,22 @@ class Editor:
 
         finally:
             session.close()
+
+    @staticmethod
+    @ensure_annotations
+    def change_bookmark_url(bookmark_id: int, url: str):
+        '''
+        Change bookmark's title.
+        '''
+
+        session = get_session()
+        try:
+            child = session.query(Bookmark).filter(
+                Bookmark.id == bookmark_id
+            ).first()
+
+            child.url = url
+            session.commit()
+
+        finally:
+            session.close()

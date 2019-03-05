@@ -423,3 +423,55 @@ class EditTestCase(unittest.TestCase):
 
         self.assertIn(db_base.DB_NAME, listdir(data))
         remove(join(data, db_base.DB_NAME))
+
+    def test_change_bookmark_url(self):
+        '''
+        Test renaming a Bookmark item.
+        '''
+        from frostmark import db_base, user_data
+        from frostmark.db import get_session
+        from frostmark.models import Bookmark
+        from frostmark.editor import Editor
+
+        data = dirname(abspath(user_data.__file__))
+        self.assertNotIn(db_base.DB_NAME, listdir(data))
+
+        item = {
+            'id': 321, 'title': 'child',
+            'url': '<url>', 'icon': b'<bytes>'
+        }
+        session = get_session()
+        try:
+            session.add(Bookmark(**item))
+            session.commit()
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.title == item['title']
+                ).first().id,
+                item['id']
+            )
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == item['id']
+                ).first().title,
+                item['title']
+            )
+
+            Editor.change_bookmark_url(
+                bookmark_id=item['id'],
+                url=f"http://{item['url']}"
+            )
+
+            self.assertEqual(
+                session.query(Bookmark).filter(
+                    Bookmark.id == item['id']
+                ).first().url,
+                f"http://{item['url']}"
+            )
+        finally:
+            session.close()
+
+        self.assertIn(db_base.DB_NAME, listdir(data))
+        remove(join(data, db_base.DB_NAME))
