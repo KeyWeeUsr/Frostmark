@@ -12,7 +12,46 @@ class BookmarkLabel extends Component {
     }
 
     createModalBody() {
-        return <button onClick={this.props.appRef.closeModal}>Close</button>;
+        return <form className='bookmarkLabelForm' action='./tbd'>
+            <p className='bookmarkLabelParagraph'>
+                <label>Title</label>
+                <input
+                    className='bookmarkLabelInput'
+                    type='text'
+                    name='title'
+                    value={this.props.text}
+                />
+            </p>
+            <p className='bookmarkLabelParagraph'>
+                <label>URL</label>
+                <input
+                    className='bookmarkLabelInput'
+                    type='url'
+                    name='url'
+                    value={this.props.url}
+                />
+            </p>
+            <p className='bookmarkLabelParagraph'>
+                <label>Folder</label>
+                <select
+                    className='bookmarkLabelInput'
+                    name='folder'
+                >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </p>
+            <p className='bookmarkLabelParagraph'>
+                <input type='submit' value='Save' />
+                <button
+                    onClick={this.props.appRef.closeModal}
+                    style={{ float: 'right' }}
+                >
+                    Cancel
+                </button>
+            </p>
+        </form>;
     }
 
     createIconLabel() {
@@ -41,7 +80,7 @@ class BookmarkLabel extends Component {
                 style={{ float: 'right' }}
                 onClick={() => {
                     this.props.appRef.openModal(
-                        this.props.text, this.createModalBody
+                        'Edit bookmark', this.createModalBody
                     )
                 }}
             />

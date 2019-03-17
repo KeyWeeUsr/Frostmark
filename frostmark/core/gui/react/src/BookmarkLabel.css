@@ -2,3 +2,16 @@
     color: #FFF;
     cursor: pointer;
 }
+
+.bookmarkLabelForm {
+    display: flex-box;
+}
+
+.bookmarkLabelParagraph {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bookmarkLabelInput {
+    width: 50vw;
+}
