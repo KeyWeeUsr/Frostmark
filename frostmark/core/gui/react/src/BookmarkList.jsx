@@ -118,6 +118,7 @@ class BookmarkList extends Component {
                 url={node.url}
                 icon={node.icon}
                 text={node.title}
+                appRef={this.props.appRef}
             />;
         }
         return result;
