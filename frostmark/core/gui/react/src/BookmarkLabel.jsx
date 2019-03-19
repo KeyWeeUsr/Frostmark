@@ -69,11 +69,16 @@ class BookmarkLabel extends Component {
                 <select
                     className='bookmarkLabelInput'
                     name='folder'
-                >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
+                >{
+                    this.state.folders.map((item) => {
+                        return <option
+                            value={item.id}
+                            selected={
+                                this.props.folder_id === item.id ? 'selected' : ''
+                            }
+                        >{item.folder_name}</option>;
+                    })
+                }</select>
             </p>
             <p className='bookmarkLabelParagraph'>
                 <input type='submit' value='Save' />
