@@ -29,8 +29,8 @@ def index():
         return html.read()
 
 
-@APP.route('/list_bookmarks')
-def list_bookmarks():
+@APP.route('/list_tree')
+def list_tree():
     """
     Return a flat list of a bookmark tree.
     """
