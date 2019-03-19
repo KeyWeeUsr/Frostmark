@@ -1,0 +1,12 @@
+.Sidebar {
+    float: left;
+    display: block;
+    width: 25vw;
+    height: 100vh;
+    background-color: #404040;
+    margin-right: 10px;
+
+    -webkit-box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:    2px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow:         2px 0px 5px 0px rgba(0, 0, 0, 0.5);
+}
