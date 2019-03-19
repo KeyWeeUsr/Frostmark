@@ -56,8 +56,9 @@ def edit_bookmark():
     folder_id = request.form.get('folder', type=int)
     name = request.form.get('title')
     url = request.form.get('url')
-    status = 400
+    status = 302
 
+    # only edit if all the fields are ok
     if all([bookmark_id, folder_id, name, url]):
         Editor.rename_bookmark(
             bookmark_id=bookmark_id,
