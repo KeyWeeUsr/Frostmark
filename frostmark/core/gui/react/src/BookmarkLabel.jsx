@@ -8,7 +8,23 @@ import './BookmarkLabel.css';
 class BookmarkLabel extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            folders: []
+        };
         this.createModalBody = this.createModalBody.bind(this);
+    }
+
+    componentWillMount() {
+        this.getFolders();
+    }
+
+    getFolders() {
+        fetch(
+            '/list_folders',
+            { mode: "cors" }
+        ).then(response => response.json()).then(data => {
+            this.setState({ folders: data });
+        });
     }
 
     createModalBody() {
