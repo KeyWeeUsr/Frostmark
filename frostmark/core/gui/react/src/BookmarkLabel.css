@@ -14,4 +14,10 @@
 
 .bookmarkLabelInput {
     width: 50vw;
+
+    /* make <input> and <select> the same size */
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
