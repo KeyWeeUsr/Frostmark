@@ -12,7 +12,11 @@ class BookmarkLabel extends Component {
     }
 
     createModalBody() {
-        return <form className='bookmarkLabelForm' action='./tbd'>
+        return <form
+            className='bookmarkLabelForm'
+            action='./edit_bookmark'
+            method='post'
+        >
             {/* invisible values for POST */}
             <input
                 type='hidden'
