@@ -19,11 +19,16 @@ class GlobalModal extends Component {
             isOpen={this.props.isOpen}
             style={{
                 content: {
+                    // auto-adjust height and bottom space
+                    height: 'auto',
+                    bottom: 'auto',
+
+                    // dynamic 80% viewport width
+                    width: '80vw',
+
+                    // move origin to center
                     top: '50%',
                     left: '50%',
-                    width: '80vw',
-                    height: '40vh',
-                    marginRight: '-50%',
                     transform: 'translate(-50%, -50%)'
                 }
             }}
