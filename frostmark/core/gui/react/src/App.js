@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import './App.css';
 import GlobalModal from './GlobalModal';
 import BookmarkList from './BookmarkList';
+import Sidebar from './Sidebar';
 
 
 /**
@@ -51,6 +52,7 @@ class App extends Component {
      */
     render() {
         return <div className="App">
+            <Sidebar />
             <GlobalModal
                 appRef={this}
                 isOpen={this.state.modalIsOpen}
