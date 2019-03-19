@@ -88,6 +88,30 @@ def assemble_bookmark_tree(
 
 
 @ensure_annotations
+def fetch_folder_tree() -> Node:
+    '''
+    Fetch folders only from the internal database, assemble a tree
+    and return the root Node.
+    '''
+
+    session = get_session()
+    folders = [vars(item) for item in session.query(Folder).all()]
+    session.close()
+
+    for folder in folders:
+        if folder['id'] != 0:
+            continue
+        folder['parent_folder_id'] = None
+
+    tree = assemble_folder_tree(
+        items=folders,
+        key='parent_folder_id',
+        node_type=Folder
+    )
+    return tree
+
+
+@ensure_annotations
 def fetch_bookmark_tree() -> Node:
     '''
     Fetch folders and bookmarks from the internal database, assemble
