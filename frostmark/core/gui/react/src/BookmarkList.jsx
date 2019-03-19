@@ -115,6 +115,8 @@ class BookmarkList extends Component {
             }
         } else if (node.node_type === 'Bookmark') {
             result = <BookmarkLabel
+                id={node.id}
+                folder_id={node.folder_id}
                 url={node.url}
                 icon={node.icon}
                 text={node.title}

@@ -13,13 +13,26 @@ class BookmarkLabel extends Component {
 
     createModalBody() {
         return <form className='bookmarkLabelForm' action='./tbd'>
+            {/* invisible values for POST */}
+            <input
+                type='hidden'
+                name='id'
+                value={this.props.id}
+            />
+            <input
+                type='hidden'
+                name='folder_id'
+                value={this.props.folder_id}
+            />
+
+            {/* visible elements */}
             <p className='bookmarkLabelParagraph'>
                 <label>Title</label>
                 <input
                     className='bookmarkLabelInput'
                     type='text'
                     name='title'
-                    value={this.props.text}
+                    defaultValue={this.props.text}
                 />
             </p>
             <p className='bookmarkLabelParagraph'>
@@ -28,7 +41,7 @@ class BookmarkLabel extends Component {
                     className='bookmarkLabelInput'
                     type='url'
                     name='url'
-                    value={this.props.url}
+                    defaultValue={this.props.url}
                 />
             </p>
             <p className='bookmarkLabelParagraph'>
