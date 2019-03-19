@@ -80,7 +80,7 @@ def edit_bookmark():
     status = 302
 
     # only edit if all the fields are ok
-    if all([bookmark_id, folder_id, name, url]):
+    if all([item is not None for item in (bookmark_id, folder_id, name, url)]):
         Editor.rename_bookmark(
             bookmark_id=bookmark_id,
             name=name
