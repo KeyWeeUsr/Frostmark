@@ -8,26 +8,4 @@ a {
 }
 
 .App {
-    width: 30%;
-    margin: auto;
-}
-
-.frostmark-bookmark-list {
-    background-color: #333333;
-}
-
-/* TreeView vertical main line */
-.tree-view {
-    border-left: 1px solid #66CCFF55;
-}
-
-/* TreeView child horizontal side line */
-.tree-view_children > div.info:before {
-    content: "\23AF\23AF";
-    font-family: monospace, monospace;
-    font-size: 15px;
-    color: #66CCFF55;
-}
-.tree-view_children > div.info {
-    transform: translate(-17px);
 }

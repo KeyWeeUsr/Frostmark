@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './BookmarkList.css';
+
 import fetch from 'node-fetch';
 
 import TreeView from 'react-treeview';
