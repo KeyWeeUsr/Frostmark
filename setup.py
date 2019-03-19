@@ -38,6 +38,9 @@ DATA = [relpath(path, ROOT) for path in [
     )),
     *glob(join(
         PKG, 'core', 'gui', 'react', 'build', 'static', 'js', '*.*'
+    )),
+    *glob(join(
+        PKG, 'core', 'gui', 'react', 'build', 'static', 'media', '*.*'
     ))
 ]]
 
