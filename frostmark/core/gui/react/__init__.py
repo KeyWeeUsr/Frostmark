@@ -4,9 +4,10 @@ Module for running a web application wrapping the CLI.
 
 from os import environ
 from os.path import join, dirname, abspath
-from flask import Flask, Response
+from flask import Flask, Response, request
 
 from frostmark.common import fetch_bookmark_tree, json_bookmark_tree
+from frostmark.editor import Editor
 
 ROOT = dirname(abspath(__file__))
 BUILD = join(ROOT, 'build')
@@ -39,6 +40,46 @@ def list_bookmarks():
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Methods': '*'
+        },
+        mimetype='application/json'
+    )
+    return response
+
+
+@APP.route('/edit_bookmark', methods=['POST'])
+def edit_bookmark():
+    """
+    Edit a single bookmark via HTML form.
+    """
+    # collect parameters
+    bookmark_id = request.form.get('id', type=int)
+    folder_id = request.form.get('folder', type=int)
+    name = request.form.get('title')
+    url = request.form.get('url')
+    status = 400
+
+    if all([bookmark_id, folder_id, name, url]):
+        Editor.rename_bookmark(
+            bookmark_id=bookmark_id,
+            name=name
+        )
+        Editor.change_bookmark_url(
+            bookmark_id=bookmark_id,
+            url=url
+        )
+        Editor.change_parent_bookmark(
+            bookmark_id=bookmark_id,
+            parent_id=folder_id
+        )
+        status = 301
+
+    response = Response(
+        status=status,
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*',
+            'Location': '/'
         },
         mimetype='application/json'
     )
