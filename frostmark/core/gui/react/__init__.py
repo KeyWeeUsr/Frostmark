@@ -6,7 +6,11 @@ from os import environ
 from os.path import join, dirname, abspath
 from flask import Flask, Response, request
 
-from frostmark.common import fetch_bookmark_tree, json_bookmark_tree
+from frostmark.common import (
+    fetch_bookmark_tree,
+    fetch_folder_tree,
+    json_bookmark_tree
+)
 from frostmark.editor import Editor
 
 ROOT = dirname(abspath(__file__))
@@ -36,6 +40,23 @@ def list_tree():
     """
     response = Response(
         response=json_bookmark_tree(fetch_bookmark_tree()),
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*'
+        },
+        mimetype='application/json'
+    )
+    return response
+
+
+@APP.route('/list_folders')
+def list_folders():
+    """
+    Return a flat list of a folder tree.
+    """
+    response = Response(
+        response=json_bookmark_tree(fetch_folder_tree()),
         headers={
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*',
