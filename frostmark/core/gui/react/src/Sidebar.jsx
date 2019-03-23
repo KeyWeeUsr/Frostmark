@@ -12,7 +12,16 @@ class Sidebar extends Component {
             <SidebarItem text='Import' />
             <SidebarItem text='Export' />
             <SidebarItem text='List profiles' />
-            <SidebarItem text='Contribute' />
+            <SidebarItem
+                text='Contribute'
+                action={event => {
+                    const win = window.open(
+                        'https://github.com/KeyWeeUsr/frostmark',
+                        '_blank'
+                    );
+                    win.focus();
+                }}
+            />
             <SidebarItem text='About' />
         </div>;
     }

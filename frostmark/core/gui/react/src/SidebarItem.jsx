@@ -4,7 +4,7 @@ import './SidebarItem.css';
 
 class SidebarItem extends Component {
     render() {
-        return <div className='logo-item'>
+        return <div className='logo-item' onClick={this.props.action}>
             <div className='logo-item-label'>{this.props.text}</div>
         </div>;
     }
