@@ -9,7 +9,7 @@ class Sidebar extends Component {
     render() {
         return <div className='Sidebar'>
             <Logo />
-            <SidebarItem text='Import' />
+            <SidebarItem text='Import' className='not-implemented' />
             <SidebarItem
                 text='Export'
                 action={event => {
