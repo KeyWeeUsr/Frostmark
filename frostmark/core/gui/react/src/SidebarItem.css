@@ -1,0 +1,15 @@
+.logo-item {
+    height: 3em;
+    border-left: 1px solid #66CCFF;
+    border-bottom: 1px outset #333333;
+}
+
+.logo-item-label {
+    padding: 1em 1em 1em 2em;
+}
+
+.logo-item:hover {
+    background-color: #66CCFF55;
+    border-left: 3px solid #66CCFF;
+    cursor: pointer;
+}
