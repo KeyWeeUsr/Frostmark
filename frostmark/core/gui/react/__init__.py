@@ -33,7 +33,7 @@ def index():
         return html.read()
 
 
-@APP.route('/list_tree')
+@APP.route('/api/list_tree')
 def list_tree():
     """
     Return a flat list of a bookmark tree.
@@ -50,7 +50,7 @@ def list_tree():
     return response
 
 
-@APP.route('/list_folders')
+@APP.route('/api/list_folders')
 def list_folders():
     """
     Return a flat list of a folder tree.
@@ -67,7 +67,7 @@ def list_folders():
     return response
 
 
-@APP.route('/edit_bookmark', methods=['POST'])
+@APP.route('/api/edit_bookmark', methods=['POST'])
 def edit_bookmark():
     """
     Edit a single bookmark via HTML form.

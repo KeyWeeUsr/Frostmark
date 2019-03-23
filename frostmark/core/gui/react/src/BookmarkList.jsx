@@ -32,7 +32,7 @@ class BookmarkList extends Component {
      */
     getBookmarks() {
         fetch(
-            '/list_tree',
+            '/api/list_tree',
             { mode: "cors" }
         ).then(response => response.json()).then(data => {
             this.setState({ bookmarks: data });

@@ -20,7 +20,7 @@ class BookmarkLabel extends Component {
 
     getFolders() {
         fetch(
-            '/list_folders',
+            '/api/list_folders',
             { mode: "cors" }
         ).then(response => response.json()).then(data => {
             this.setState({ folders: data });
@@ -30,7 +30,7 @@ class BookmarkLabel extends Component {
     createModalBody() {
         return <form
             className='bookmarkLabelForm'
-            action='./edit_bookmark'
+            action='./api/edit_bookmark'
             method='post'
         >
             {/* invisible values for POST */}
