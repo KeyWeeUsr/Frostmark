@@ -23,6 +23,12 @@
         "font-awesome": "^4.7.0"
     },
 
+    // deps used only for the running via Docker
+    "devDependencies": {
+        // proxy middleware for multiple endpoints with src/setupProxy.js
+        "http-proxy-middleware": "^0.19.1"
+    },
+
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -39,7 +45,5 @@
         "not dead",
         "not ie <= 11",
         "not op_mini all"
-    ],
-
-    "proxy": "REACT_PROXY"
+    ]
 }

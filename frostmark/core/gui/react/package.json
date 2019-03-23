@@ -18,6 +18,10 @@
         "font-awesome": "^4.7.0"
     },
 
+    "devDependencies": {
+        "http-proxy-middleware": "^0.19.1"
+    },
+
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -34,7 +38,5 @@
         "not dead",
         "not ie <= 11",
         "not op_mini all"
-    ],
-
-    "proxy": "http://127.0.0.1"
+    ]
 }
