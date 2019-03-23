@@ -1,10 +1,12 @@
 .logo {
-    margin-top: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     line-height: 50%;
     text-align: center;
+    border-bottom: 3px inset #333333;
 }
 
 .logo-line {
-    font-size: 11px;
+    font-size: 12px;
     white-space: pre;
 }
