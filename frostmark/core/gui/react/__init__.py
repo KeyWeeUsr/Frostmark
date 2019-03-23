@@ -12,6 +12,7 @@ from frostmark.common import (
     json_bookmark_tree
 )
 from frostmark.editor import Editor
+from frostmark.exporter import Exporter
 
 ROOT = dirname(abspath(__file__))
 BUILD = join(ROOT, 'build')
@@ -104,6 +105,25 @@ def edit_bookmark():
             'Location': '/'
         },
         mimetype='application/json'
+    )
+    return response
+
+
+@APP.route('/api/export_bookmarks')
+def export_bookmarks():
+    """
+    Export all bookmarks as HTML.
+    """
+    export = Exporter.prepare_export()
+    response = Response(
+        response=export.encode('utf-8'),
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*',
+            'Content-Disposition': 'attachment; filename="export.html"'
+        },
+        mimetype='application/octet-stream'
     )
     return response
 

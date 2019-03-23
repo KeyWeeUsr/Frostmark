@@ -10,7 +10,16 @@ class Sidebar extends Component {
         return <div className='Sidebar'>
             <Logo />
             <SidebarItem text='Import' />
-            <SidebarItem text='Export' />
+            <SidebarItem
+                text='Export'
+                action={event => {
+                    const win = window.open(
+                        '/api/export_bookmarks',
+                        '_blank'
+                    );
+                    win.focus();
+                }}
+            />
             <SidebarItem text='List profiles' />
             <SidebarItem
                 text='Contribute'
