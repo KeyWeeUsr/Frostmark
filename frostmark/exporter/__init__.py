@@ -20,7 +20,22 @@ class Exporter:
     @ensure_annotations
     def export_to(path: str):
         '''
-        Export bookmarks from internal storage to particular path.
+        Public export function for STDOUT or file.
+        '''
+        xml = Exporter.prepare_export()
+
+        if path != '-':
+            with open(path, 'rb') as output:
+                output.write(xml.encode('utf-8'))
+        else:
+            # output to STDOUT
+            print(xml)
+
+    @staticmethod
+    @ensure_annotations
+    def prepare_export():
+        '''
+        Export bookmarks from internal storage.
         '''
 
         xml = dedent('''
@@ -117,6 +132,4 @@ class Exporter:
         while folder_stack:
             folder_stack = folder_stack[:-1]
             xml += f'{sep * len(folder_stack)}</DL><p>\n'
-
-        with open(path, 'rb') as output:
-            output.write(xml.encode('utf-8'))
+        return xml
