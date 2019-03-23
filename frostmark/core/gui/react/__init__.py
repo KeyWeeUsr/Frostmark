@@ -20,7 +20,7 @@ APP = Flask(
     static_folder=join(BUILD, 'static'),
     static_url_path='/static'
 )
-APP.debug = True
+APP.debug = False
 
 
 @APP.route('/')
