@@ -10,7 +10,13 @@
 
 .logo-item:hover {
     color: #333333;
-    background-color: #66CCFF;
     border-left: 3px solid #66CCFF;
     cursor: pointer;
+
+    background-color: #66CCFF;
+    -webkit-transition: background-color 1000ms ease-out;
+    -moz-transition: background-color 1000ms ease-out;
+    -o-transition: background-color 1000ms ease-out;
+    -ms-transition: background-color 1000ms ease-out;
+    transition: background-color 1000ms ease-out;
 }
