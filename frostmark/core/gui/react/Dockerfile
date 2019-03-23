@@ -14,8 +14,3 @@ ENV PATH /app/:$PATH
 
 # make sure webpack hot reloading works
 ENV CHOKIDAR_USEPOLLING true
-
-# set proxy for webpack and fetch() requests
-ARG REACT_PROXY
-RUN sed -i -e "s|REACT_PROXY|$REACT_PROXY|" package.json && \
-    cat package.json

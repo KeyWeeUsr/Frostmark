@@ -2,7 +2,6 @@
 set -xe
 
 docker build \
-    --build-arg REACT_PROXY=${REACT_PROXY:-http://127.0.0.1} \
     --tag frostmark_builder .
 
 docker kill frostmark_runner ||true
