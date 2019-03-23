@@ -20,7 +20,7 @@ class Sidebar extends Component {
                     win.focus();
                 }}
             />
-            <SidebarItem text='List profiles' />
+            <SidebarItem text='List profiles' className='not-implemented' />
             <SidebarItem
                 text='Contribute'
                 action={event => {
@@ -31,7 +31,7 @@ class Sidebar extends Component {
                     win.focus();
                 }}
             />
-            <SidebarItem text='About' />
+            <SidebarItem text='About' className='not-implemented' />
         </div>;
     }
 }
