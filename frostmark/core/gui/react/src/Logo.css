@@ -1,0 +1,10 @@
+.logo {
+    margin-top: 1em;
+    line-height: 50%;
+    text-align: center;
+}
+
+.logo-line {
+    font-size: 11px;
+    white-space: pre;
+}
