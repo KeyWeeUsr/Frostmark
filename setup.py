@@ -25,8 +25,9 @@ with open(join(ROOT, 'LICENSE.txt')) as fd:
 
 DATA = [relpath(path, ROOT) for path in [
     'LICENSE.txt',
-    'README.md',
+    'README.md'
 ] + [
+    *glob(join(ROOT, 'LICENSES', '*.txt')),
     *glob(join(PKG, 'tests', '*.html')),
     *glob(join(PKG, 'tests', '*.json')),
     *glob(join(PKG, 'tests', '*.sqlite')),
