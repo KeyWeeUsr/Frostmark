@@ -128,7 +128,6 @@ class BookmarkLabel extends Component {
     render() {
         return <div
             className='info'
-            key={'bookmark|' + this.props.text}
         >{this.getLabel()}</div>
     }
 }

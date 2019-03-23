@@ -97,7 +97,7 @@ class BookmarkList extends Component {
             if (!node.children.length) {
                 result = (
                     <TreeView
-                        key={'folder|' + node.folder_name}
+                        key={'folder|' + node.id}
                         nodeLabel={
                             <FolderLabel text={node.folder_name}></FolderLabel>
                         }
@@ -106,7 +106,7 @@ class BookmarkList extends Component {
             } else {
                 result = (
                     <TreeView
-                        key={'folder|' + node.folder_name}
+                        key={'folder|' + node.id}
                         nodeLabel={
                             <FolderLabel text={node.folder_name}></FolderLabel>
                         }
@@ -117,6 +117,7 @@ class BookmarkList extends Component {
             }
         } else if (node.node_type === 'Bookmark') {
             result = <BookmarkLabel
+                key={'bookmark|' + node.id}
                 id={node.id}
                 folder_id={node.folder_id}
                 url={node.url}
