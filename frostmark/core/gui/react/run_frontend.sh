@@ -15,6 +15,7 @@ docker kill frostmark_runner ||true
 docker rm -vf frostmark_runner ||true
 
 docker run -it \
+    --env REACT_PROXY=${REACT_PROXY:-http://127.0.0.1} \
     --volume $(pwd)/src:/app/src \
     --volume $(pwd)/public:/app/public \
     --publish 3000:3000 \
