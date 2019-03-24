@@ -24,7 +24,7 @@
 [![Downloads week](https://pepy.tech/badge/frostmark/week)
 ](https://pepy.tech/project/frostmark)
 [![All Releases](https://img.shields.io/github/downloads/keyweeusr/frostmark/total.svg)
-](https://github.com/KeyWeeUsr/frostmark)
+](https://github.com/KeyWeeUsr/frostmark/releases)
 [![Code bytes](https://img.shields.io/github/languages/code-size/keyweeusr/frostmark.svg)
 ](https://github.com/KeyWeeUsr/frostmark)
 [![Repo size](https://img.shields.io/github/repo-size/keyweeusr/frostmark.svg)
