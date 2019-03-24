@@ -1,0 +1,8 @@
+.profile-list {
+    min-width: 60vw;
+    background-color: #333333;
+}
+
+.profile-list > dl {
+    margin-top: 0px;
+}
