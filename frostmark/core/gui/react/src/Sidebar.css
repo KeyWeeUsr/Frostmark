@@ -1,7 +1,7 @@
 .sidebar {
     float: left;
-    display: block;
     width: 25vw;
+    max-width: 220px;
     height: 100vh;
     background-color: #404040;
     margin-right: 10px;
