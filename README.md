@@ -6,6 +6,30 @@
 ](https://travis-ci.org/KeyWeeUsr/frostmark)
 [![Docs](https://readthedocs.org/projects/frostmark/badge/?version=latest)
 ](https://frostmark.readthedocs.io/en/latest/)
+[![GitHub version](https://badge.fury.io/gh/keyweeusr%2Ffrostmark.svg)
+](https://badge.fury.io/gh/keyweeusr%2Ffrostmark)
+[![PyPI version](https://img.shields.io/pypi/v/frostmark.svg)
+](https://pypi.org/project/frostmark/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/frostmark.svg)
+](https://pypi.org/project/frostmark/)
+[![Latest release deps](https://img.shields.io/librariesio/release/pypi/frostmark.svg)
+](https://libraries.io/pypi/frostmark)
+[![GitHub repo deps](https://img.shields.io/librariesio/github/keyweeusr/frostmark.svg)
+](https://libraries.io/pypi/frostmark)
+
+[![Downloads total](https://pepy.tech/badge/frostmark)
+](https://pepy.tech/project/frostmark)
+[![Downloads month](https://pepy.tech/badge/frostmark/month)
+](https://pepy.tech/project/frostmark)
+[![Downloads week](https://pepy.tech/badge/frostmark/week)
+](https://pepy.tech/project/frostmark)
+[![All Releases](https://img.shields.io/github/downloads/keyweeusr/frostmark/total.svg)
+](https://github.com/KeyWeeUsr/frostmark)
+[![Code bytes](https://img.shields.io/github/languages/code-size/keyweeusr/frostmark.svg)
+](https://github.com/KeyWeeUsr/frostmark)
+[![Repo size](https://img.shields.io/github/repo-size/keyweeusr/frostmark.svg)
+](https://github.com/KeyWeeUsr/frostmark)
+
 
 Frostmark is a simple bookmarks manager. It can import all bookmarks from
 multiple browsers, list the imported bookmarks and export them via HTML format.
