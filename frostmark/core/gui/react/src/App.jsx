@@ -2,6 +2,8 @@
  * Main application entrypoint assembling all other components.
  */
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
 import GlobalModal from './GlobalModal';
 import BookmarkList from './BookmarkList';
@@ -52,14 +54,18 @@ class App extends Component {
      */
     render() {
         return <div className="app">
-            <Sidebar />
-            <GlobalModal
-                appRef={this}
-                isOpen={this.state.modalIsOpen}
-                getBody={this.state.modalBodyBuilder}
-                title={this.state.modalTitle}
-            />
-            <BookmarkList appRef={this} />
+            <Router>
+                <Sidebar />
+                <GlobalModal
+                    appRef={this}
+                    isOpen={this.state.modalIsOpen}
+                    getBody={this.state.modalBodyBuilder}
+                    title={this.state.modalTitle}
+                />
+                <Route path='/bookmark-list' component={
+                    () => <BookmarkList appRef={this} />
+                } />
+            </Router>
         </div>;
     }
 }
