@@ -22,10 +22,10 @@ class Sidebar extends Component {
                 }}
             />
             <Link to='/bookmark-list'>
-                <SidebarItem text='List bookmarks' />
+                <SidebarItem text='Bookmarks' />
             </Link>
             <Link to='/profile-list'>
-                <SidebarItem text='List profiles' />
+                <SidebarItem text='Profiles' />
             </Link>
             <SidebarItem
                 text='Contribute'
