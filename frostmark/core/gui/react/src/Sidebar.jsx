@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 import fetch from 'node-fetch';
 
@@ -8,7 +9,7 @@ import SidebarItem from './SidebarItem';
 
 class Sidebar extends Component {
     render() {
-        return <div className='Sidebar'>
+        return <div className='sidebar'>
             <Logo />
             <SidebarItem text='Import' className='not-implemented' />
             <SidebarItem
@@ -21,7 +22,9 @@ class Sidebar extends Component {
                     win.focus();
                 }}
             />
-            <SidebarItem text='List bookmarks' />
+            <Link to='/bookmark-list'>
+                <SidebarItem text='List bookmarks' />
+            </Link>
             <SidebarItem
                 text='List profiles'
                 action={event => {
