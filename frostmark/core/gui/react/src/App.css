@@ -5,6 +5,7 @@ body {
 
 a {
     color: #66CCFF;
+    text-decoration: none;
 }
 
 .not-implemented {
