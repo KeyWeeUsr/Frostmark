@@ -15,7 +15,9 @@
 
         "react-modal": "^3.8.1",
 
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+
+        "react-router-dom": "^5.0.0"
     },
 
     "devDependencies": {
