@@ -51,8 +51,8 @@ setup(
     version=VERSION,
     license=GPL,
 
-    description='TBD',
-    long_description='TBD',
+    description='Frostmark - A simple bookmark manager.',
+    long_description=README,
     packages=find_packages(),
 
     author='Peter Badida',
