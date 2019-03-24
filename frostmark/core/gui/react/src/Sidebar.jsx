@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
-import fetch from 'node-fetch';
 
 import Logo from './Logo';
 import SidebarItem from './SidebarItem';
@@ -25,17 +24,9 @@ class Sidebar extends Component {
             <Link to='/bookmark-list'>
                 <SidebarItem text='List bookmarks' />
             </Link>
-            <SidebarItem
-                text='List profiles'
-                action={event => {
-                    fetch(
-                        '/api/list_profiles',
-                        { mode: "cors" }
-                    ).then(response => response.json()).then(data => {
-                        console.log(data);
-                    });
-                }}
-            />
+            <Link to='/profile-list'>
+                <SidebarItem text='List profiles' />
+            </Link>
             <SidebarItem
                 text='Contribute'
                 action={event => {
