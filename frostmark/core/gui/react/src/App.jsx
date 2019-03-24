@@ -51,7 +51,7 @@ class App extends Component {
      * Render all the components.
      */
     render() {
-        return <div className="App">
+        return <div className="app">
             <Sidebar />
             <GlobalModal
                 appRef={this}
