@@ -2,6 +2,7 @@
 Module for running a web application wrapping the CLI.
 """
 
+import json
 from os import environ
 from os.path import join, dirname, abspath
 from flask import Flask, Response, request
@@ -13,6 +14,7 @@ from frostmark.common import (
 )
 from frostmark.editor import Editor
 from frostmark.exporter import Exporter
+from frostmark.profiles import get_all_profiles
 
 ROOT = dirname(abspath(__file__))
 BUILD = join(ROOT, 'build')
@@ -124,6 +126,23 @@ def export_bookmarks():
             'Content-Disposition': 'attachment; filename="export.html"'
         },
         mimetype='application/octet-stream'
+    )
+    return response
+
+
+@APP.route('/api/list_profiles')
+def list_profiles():
+    """
+    Return all profiles found in all available browsers.
+    """
+    response = Response(
+        response=json.dumps(get_all_profiles()),
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*'
+        },
+        mimetype='application/json'
     )
     return response
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
+import fetch from 'node-fetch';
 
 import Logo from './Logo';
 import SidebarItem from './SidebarItem';
@@ -20,7 +21,18 @@ class Sidebar extends Component {
                     win.focus();
                 }}
             />
-            <SidebarItem text='List profiles' className='not-implemented' />
+            <SidebarItem text='List bookmarks' />
+            <SidebarItem
+                text='List profiles'
+                action={event => {
+                    fetch(
+                        '/api/list_profiles',
+                        { mode: "cors" }
+                    ).then(response => response.json()).then(data => {
+                        console.log(data);
+                    });
+                }}
+            />
             <SidebarItem
                 text='Contribute'
                 action={event => {
