@@ -56,7 +56,7 @@ class App extends Component {
     render() {
         return <div className="app">
             <Router>
-                <Sidebar />
+                <Sidebar appRef={this} />
                 <GlobalModal
                     appRef={this}
                     isOpen={this.state.modalIsOpen}
