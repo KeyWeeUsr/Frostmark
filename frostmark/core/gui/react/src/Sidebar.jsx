@@ -7,10 +7,33 @@ import SidebarItem from './SidebarItem';
 
 
 class Sidebar extends Component {
+    createImportBody() {
+        return <form
+            enctype='multipart/form-data'
+            method='post'
+            action='/api/import_bookmarks'
+        >
+            <select name='browser'>
+                <option value='firefox' selected={true}>Firefox</option>
+                <option value='chrome'>Chrome</option>
+                <option value='opera'>Opera</option>
+            </select>
+            <input name='file' type='file' />
+            <input type='submit' value='submit' />
+        </form>;
+    }
+
     render() {
         return <div className='sidebar'>
             <Logo />
-            <SidebarItem text='Import' className='not-implemented' />
+            <SidebarItem
+                text='Import'
+                action={event => {
+                    this.props.appRef.openModal(
+                        'Import bookmarks', this.createImportBody
+                    );
+                }}
+            />
             <SidebarItem
                 text='Export'
                 action={event => {
