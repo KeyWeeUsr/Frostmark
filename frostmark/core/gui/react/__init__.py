@@ -5,6 +5,7 @@ Module for running a web application wrapping the CLI.
 import json
 from os import environ
 from os.path import join, dirname, abspath
+from tempfile import NamedTemporaryFile
 from flask import Flask, Response, request
 
 from frostmark.common import (
@@ -15,6 +16,7 @@ from frostmark.common import (
 from frostmark.editor import Editor
 from frostmark.exporter import Exporter
 from frostmark.profiles import get_all_profiles
+from frostmark.importer import Importer
 
 ROOT = dirname(abspath(__file__))
 BUILD = join(ROOT, 'build')
@@ -141,6 +143,35 @@ def list_profiles():
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Methods': '*'
+        },
+        mimetype='application/json'
+    )
+    return response
+
+
+@APP.route('/api/import_bookmarks', methods=['POST'])
+def import_bookmarks():
+    """
+    Import bookmarks from file.
+    """
+    browser = request.form.get('browser')
+    bookmarks = request.files.get('file')
+    status = 302
+
+    # only edit if all the fields are ok
+    if all([item is not None for item in (browser, bookmarks)]):
+        with NamedTemporaryFile() as temp:
+            temp.write(bookmarks.read())
+            Importer(browser).import_from(temp.name)
+        status = 301
+
+    response = Response(
+        status=status,
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*',
+            'Location': '/'
         },
         mimetype='application/json'
     )
