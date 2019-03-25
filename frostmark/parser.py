@@ -93,7 +93,7 @@ PARSER.console_parser.add_argument(
 
 PARSER.console_parser.add_argument(
     '-p', '--list-profiles',
-    help='import bookmarks from a browser profile',
+    help='show available profiles for specified browser',
     required=False, nargs=1,
     metavar=('BROWSER', ),
 
