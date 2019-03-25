@@ -7,19 +7,38 @@ import SidebarItem from './SidebarItem';
 
 
 class Sidebar extends Component {
+    constructor() {
+        super();
+        this.createImportBody = this.createImportBody.bind(this);
+    }
+
     createImportBody() {
         return <form
             enctype='multipart/form-data'
             method='post'
             action='/api/import_bookmarks'
         >
-            <select name='browser'>
-                <option value='firefox' selected={true}>Firefox</option>
-                <option value='chrome'>Chrome</option>
-                <option value='opera'>Opera</option>
-            </select>
-            <input name='file' type='file' />
-            <input type='submit' value='submit' />
+            <h4>Choose bookmark browser type:</h4>
+            <p className='bookmarkLabelParagraph'>
+                <select name='browser'>
+                    <option value='firefox' selected={true}>Firefox</option>
+                    <option value='chrome'>Chrome</option>
+                    <option value='opera'>Opera</option>
+                </select>
+            </p>
+            <h4>Select a bookmark profile:</h4>
+            <p className='bookmarkLabelParagraph'>
+                <input name='file' type='file' />
+            </p>
+            <p className='bookmarkLabelParagraph'>
+                <input type='submit' value='Import' />
+                <button
+                    onClick={this.props.appRef.closeModal}
+                    style={{ float: 'right' }}
+                >
+                    Cancel
+                </button>
+            </p>
         </form>;
     }
 
