@@ -19,10 +19,6 @@ with open(join(ROOT, "README.md")) as fd:
     README = fd.read()
 
 
-with open(join(ROOT, 'LICENSE.txt')) as fd:
-    GPL = fd.read()
-
-
 DATA = [relpath(path, ROOT) for path in [
     'LICENSE.txt',
     'README.md'
@@ -49,7 +45,6 @@ DATA = [relpath(path, ROOT) for path in [
 setup(
     name=NAME,
     version=VERSION,
-    license=GPL,
 
     description='Frostmark - A simple bookmark manager.',
     long_description=README,
