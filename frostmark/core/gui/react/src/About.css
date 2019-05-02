@@ -1,0 +1,7 @@
+.about {
+    overflow: auto;
+}
+
+.about a {
+    text-decoration: underline;
+}

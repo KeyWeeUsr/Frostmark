@@ -9,6 +9,7 @@ import GlobalModal from './GlobalModal';
 import BookmarkList from './BookmarkList';
 import Sidebar from './Sidebar';
 import ProfileList from './ProfileList';
+import About from './About';
 
 
 /**
@@ -68,6 +69,9 @@ class App extends Component {
                 } />
                 <Route path='/profile-list' component={
                     () => <ProfileList appRef={this} />
+                } />
+                <Route path='/about' component={
+                    () => <About appRef={this} />
                 } />
             </Router>
         </div>;

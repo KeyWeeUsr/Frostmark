@@ -79,7 +79,9 @@ class Sidebar extends Component {
                     win.focus();
                 }}
             />
-            <SidebarItem text='About' className='not-implemented' />
+            <Link to='/about'>
+                <SidebarItem text='About' />
+            </Link>
         </div>;
     }
 }
