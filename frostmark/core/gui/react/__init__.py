@@ -3,11 +3,12 @@ Module for running a web application wrapping the CLI.
 """
 
 import json
-from os import environ
+from os import environ, listdir
 from os.path import join, dirname, abspath
 from tempfile import NamedTemporaryFile
 from flask import Flask, Response, request
 
+from frostmark import licenses
 from frostmark.common import (
     fetch_bookmark_tree,
     fetch_folder_tree,
@@ -172,6 +173,45 @@ def import_bookmarks():
             'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Methods': '*',
             'Location': '/'
+        },
+        mimetype='application/json'
+    )
+    return response
+
+
+@APP.route('/api/all_licenses')
+def all_licenses():
+    """
+    Return licenses for all known dependencies.
+    """
+    all_licenses = {}
+    licenses_root = dirname(licenses.__file__)
+    for file in listdir(licenses_root):
+        if not file.endswith('.txt'):
+            continue
+
+        name_parts = file.split('-')
+        if len(name_parts) > 1:
+            filename = name_parts[-1]
+            commit = name_parts[-2]
+            package = ''.join(name_parts[0:-2])
+        else:
+            filename = package = ''.join(name_parts)
+            commit = ''
+
+        with open(join(licenses_root, file)) as license_file:
+            all_licenses[package] = {
+                'commit': commit,
+                'filename': filename,
+                'license': license_file.read()
+            }
+
+    response = Response(
+        response=json.dumps(all_licenses),
+        headers={
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Methods': '*'
         },
         mimetype='application/json'
     )
