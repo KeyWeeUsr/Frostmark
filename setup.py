@@ -20,13 +20,12 @@ with open(join(ROOT, "README.md")) as fd:
 
 
 DATA = [relpath(path, ROOT) for path in [
-    'LICENSE.txt',
     'README.md'
 ] + [
-    *glob(join(ROOT, 'LICENSES', '*.txt')),
     *glob(join(PKG, 'tests', '*.html')),
     *glob(join(PKG, 'tests', '*.json')),
     *glob(join(PKG, 'tests', '*.sqlite')),
+    *glob(join(PKG, 'licenses', '*.txt')),
     *glob(join(
         PKG, 'core', 'gui', 'react', 'build', '*.*'
     )),
