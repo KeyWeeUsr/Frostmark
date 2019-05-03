@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 
 import './About.css';
+import Foldable from './Foldable';
 
 
 class About extends Component {
+    constructor() {
+        super();
+        this.state = {
+            licenses: {}
+        };
+    }
+
+    componentWillMount() {
+        this.getLicenses();
+    }
+
+    getLicenses() {
+        fetch(
+            '/api/all_licenses',
+            { mode: "cors" }
+        ).then(response => response.json()).then(data => {
+            this.setState({ licenses: data });
+        });
+    }
+
     render() {
         return <div className='about'>
             <p>Frostmark is a simple bookmarks manager. It can import all
@@ -22,6 +43,19 @@ class About extends Component {
             and talk about the project in the &nbsp;
             <a href="https://riot.im/app/#/group/+frostmark:matrix.org">
             Matrix community</a></p>
+
+            {
+                Object.keys(this.state.licenses).map(
+                    key => <Foldable
+                        title={
+                            this.state.licenses[key].commit
+                            ? `${key} (${this.state.licenses[key].commit})`
+                            : key
+                        }
+                        text={ this.state.licenses[key].license }
+                    />
+                )
+            }
         </div>;
     }
 }
