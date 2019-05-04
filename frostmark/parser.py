@@ -10,6 +10,7 @@ from frostmark.editor import Editor
 from frostmark.importer import Importer
 from frostmark.exporter import Exporter
 from frostmark.profiles import print_profiles, print_all_profiles
+from frostmark.licenses import Licenses
 from frostmark.core.console import Console
 
 
@@ -228,5 +229,18 @@ PARSER.console_parser.add_argument(
             bookmark_id=int(kwargs['arg_values'][0]),
             url=kwargs['arg_values'][1]
         )
+    )
+)
+
+
+PARSER.console_parser.add_argument(
+    '--licenses',
+    help='print licenses for all known dependencies',
+    required=False, nargs=0,
+
+    # pylint: disable=unnecessary-lambda
+    action=lambda *args, **kwargs: ExecuteAction(
+        *args, **kwargs,
+        func=lambda *args, **kwargs: Licenses.print_all_licenses()
     )
 )
