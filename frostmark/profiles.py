@@ -8,6 +8,8 @@ from os.path import join, abspath, expanduser, exists
 
 from ensure import ensure_annotations
 
+SUPPORTED_BROWSERS = ['firefox', 'opera']
+
 
 @ensure_annotations
 def get_location(browser: str) -> str:
@@ -86,7 +88,7 @@ def get_all_profiles() -> dict:
     Get all profiles for all supported browsers.
     '''
 
-    browsers = ['firefox', 'opera']
+    browsers = SUPPORTED_BROWSERS
     profiles = {}
 
     for browser in browsers:
