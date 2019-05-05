@@ -30,7 +30,10 @@ class ProfileTestCase(unittest.TestCase):
         )
 
         # with APPDATA
-        with exi, platform, listdir:
+        env = patch('frostmark.profiles.environ', {
+            'APPDATA': 'dummy'
+        })
+        with exi, platform, listdir, env:
             self.assertEqual([
                 join(basename(dirname(item)), basename(item))
                 for item in get_profiles('firefox')
@@ -86,7 +89,10 @@ class ProfileTestCase(unittest.TestCase):
         )
 
         # with APPDATA
-        with exi, platform, listdir:
+        env = patch('frostmark.profiles.environ', {
+            'APPDATA': 'dummy'
+        })
+        with exi, platform, listdir, env:
             self.assertEqual([
                 join(basename(dirname(item)), basename(item))
                 for item in get_profiles('opera')
