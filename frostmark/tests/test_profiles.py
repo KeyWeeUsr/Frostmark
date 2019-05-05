@@ -166,3 +166,55 @@ class ProfileTestCase(unittest.TestCase):
         with profiles, patch('builtins.print') as output:
             print_profiles('')
             output.assert_called_once_with(expected)
+
+    def test_profile_print_all(self):
+        '''
+        Test printing profiles for all browsers.
+        '''
+
+        from frostmark.profiles import print_all_profiles
+        expected = {'a': ['1', '2'], 'b': ['3', '4']}
+        profiles = patch(
+            'frostmark.profiles.get_all_profiles',
+            return_value=expected
+        )
+        with profiles, patch('builtins.print') as output:
+            print_all_profiles()
+
+            # access call argument
+            # call('a') -> ('a', ) -> 'a'
+            self.assertIn(output.call_args_list[0][0][0], expected.keys())
+            self.assertIn(output.call_args_list[3][0][0], expected.keys())
+
+            # append \t prefix
+            expected = {
+                key: [
+                    f'\t{item}'
+                    for item in value
+                ]
+                for key, value in expected.items()
+            }
+            # [call('\t1'), ...] -> [('\t1', ), ...] -> ['\t1', ...]
+            self.assertIn(
+                [cll[0][0] for cll in output.call_args_list[1:3]],
+                expected.values()
+            )
+            self.assertIn(
+                [cll[0][0] for cll in output.call_args_list[4:6]],
+                expected.values()
+            )
+
+    @staticmethod
+    def test_profile_print_all_empty():
+        '''
+        Test printing empty profiles.
+        '''
+
+        from frostmark.profiles import print_all_profiles
+        profiles = patch(
+            'frostmark.profiles.get_all_profiles',
+            return_value={'empty_profiles': []}
+        )
+        with profiles, patch('builtins.print') as output:
+            print_all_profiles()
+            output.assert_not_called()
