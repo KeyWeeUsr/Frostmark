@@ -71,6 +71,30 @@ class ProfileTestCase(unittest.TestCase):
                 for item in get_profiles('firefox')
             ], expected_files)
 
+    def test_profile_firefox_linux(self):
+        '''
+        Test fetching Firefox profiles on GNU/Linux distros.
+        '''
+
+        from frostmark.profiles import get_profiles
+        found_profiles = ['profile1.default', 'profile2.default']
+        expected_files = [
+            join('profile1.default', 'places.sqlite'),
+            join('profile2.default', 'places.sqlite')
+        ]
+        exi = patch('frostmark.profiles.exists')
+        platform = patch('sys.platform', 'linux')
+        listdir = patch(
+            'frostmark.profiles.listdir',
+            return_value=found_profiles
+        )
+
+        with exi, platform, listdir:
+            self.assertEqual([
+                join(basename(dirname(item)), basename(item))
+                for item in get_profiles('firefox')
+            ], expected_files)
+
     def test_profile_opera_win(self):
         '''
         Test fetching Opera profiles on Windows.
