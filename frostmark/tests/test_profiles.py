@@ -129,3 +129,11 @@ class ProfileTestCase(unittest.TestCase):
                 join(basename(dirname(item)), basename(item))
                 for item in get_profiles('opera')
             ], expected_files)
+
+    def test_profile_unsupported_browser(self):
+        '''
+        Test fetching profiles for an unsupported browser.
+        '''
+
+        from frostmark.profiles import get_profiles
+        self.assertEqual(get_profiles('not_supported'), [])
